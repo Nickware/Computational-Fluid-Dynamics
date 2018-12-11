@@ -1,13 +1,18 @@
-#Script Install Ngsolve 
-#Prepara la configuración de Ngsolve
-#Construye los binarios de Ngsolve
-#Probado en Deepin 15.7
+# Script Install Ngsolve 
+# Preparing installation and build Binaries
+# Test in Deepin 15.8
 #Autores: N.Torres
 #jntorresr@udistrital.edu.co
-#Version: 0.0.1
-#Fecha: 12-11-2018
+#Version: 0.0.2
+#Fecha: 12-12-2018
 # https://ngsolve.org/docu/latest/install/installlinux.html
 # https://ngsolve.org/docu/latest/install/cmakeoptions.html?highlight=opencascade
+# It must be installed before starting to prepare the installation
+sudo apt install libavcodec-ffmpeg-dev
+sudo apt install libavformat-ffmpeg-dev
+sudo apt install libavutil-ffmpeg-dev
+sudo apt search libswscale
+sudo apt install libswscale-ffmpeg-dev
 #Remove previus versions
 echo 'Borrando versiones previas'
 rm -rf /opt/ngsuite
@@ -40,6 +45,6 @@ cmake -DUSE_OCC=ON -DUSE_JPEG=ON -DUSE_MPEG=ON -DCMAKE_INSTALL_PREFIX=${BASEDIR}
 echo 'Construyendo'
 echo 'Este proceso se puede demorar de 20 a 30 minutos (Dependiendo las especificaciones tecnicas de cada maquina)'
 make -j4 install
-echo "export NETGENDIR=${BASEDIR}/ngsolve-install/bin" >> ~/.bashrc
-echo "export PATH=\$NETGENDIR:\$PATH" >> ~/.bashrc
-source ~/.bashrc
+#echo "export NETGENDIR=${BASEDIR}/ngsolve-install/bin" >> ~/.bashrc
+#echo "export PATH=\$NETGENDIR:\$PATH" >> ~/.bashrc
+#source ~/.bashrc
