@@ -2,6 +2,11 @@ import tensorflow as tf
 from tensorflow import keras
 import numpy as np
 
+# Definir constantes fisicas
+rho = 1.225 # kg/m^3 (Densidad del aire)
+mu = 1.81e-5 # Pa.s (Viscosidad dinamica del aire)
+nu = mu/rho # Viscosidad cinemática (m^2/s)
+
 #Definir la arquitectura de la red neuronal
 model = keras.Sequential([
     keras.layers.Dense(units=64, activation='tanh', input_shape=(3,)),
@@ -23,23 +28,31 @@ def physics_loss(y_true, y_pred):
 
     # Derivadas primeras
         u_x = tape.gradient(u, x)
-        v_y = tape.gradient(u, y)
+        u_y = tape.gradient(u, y)
+        v_x = tape.gradient(v, x)
+        v_y = tape.gradient(v, y)
+        p_x = tape.gradient(p, x)
+        p_y = tape.gradient(p, y)
 
     # Derivadas segundas
         u_xx = tape.gradient(u_x, x)
-        u_yy = tape.gradient(u_x, y)
-        v_xx = tape.gradient(v, x)
-        v_yy = tape.gradient(v, y)
+        u_yy = tape.gradient(u_y, y)
+        v_xx = tape.gradient(v_x, x)
+        v_yy = tape.gradient(v_y, y)
 
     # Ecuación de continuidad (incompresible)
         continuity_eq = u_x + v_y
 
     # Ecuación de momento (simplificada para el flujo estacionario)
-        momentum_x = u * u_x + v * v_y + (1/rho) * tape.gradient(p, x) - (mu/rho) * (u_xx + u_yy)
-        momentum_y = u * u_x + v * v_y + (1/rho) * tape.gradient(p, y) - (mu/rho) * (v_xx + v_yy)
+        momentum_x = u * u_x + v * u_y + (1/rho) * p, x - nu * (u_xx + u_yy)
+        momentum_y = u * v_x + v * v_y + (1/rho) * p, y - nu * (v_xx + v_yy)
 
 # Perdida total
-    loss = tf.reduce_mean(tf.square(continuity_eq**2)) + tf.reduce_mean(tf.square(momentum_x**2)) + tf.reduce_mean(tf.square(momentum_y**2))
+    loss = (
+        tf.reduce_mean(continuity_eq**2) + # Ecuación de continuidad
+        tf.reduce_mean(momentum_x**2) + # Ecuación de momento en x
+        tf.reduce_mean(momentum_y**2) # Ecuación de momento en y
+    )
     return loss
 
 # Generar datos de entrenamiento (coordenadas espaciales y temporales)
