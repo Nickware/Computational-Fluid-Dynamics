@@ -44,8 +44,10 @@ def physics_loss(y_true, y_pred):
         continuity_eq = u_x + v_y
 
     # Ecuación de momento (simplificada para el flujo estacionario)
-        momentum_x = u * u_x + v * u_y + (1/rho) * p, x - nu * (u_xx + u_yy)
-        momentum_y = u * v_x + v * v_y + (1/rho) * p, y - nu * (v_xx + v_yy)
+        #momentum_x = u * u_x + v * u_y + (1/rho) * p, x - nu * (u_xx + u_yy)
+        #momentum_y = u * v_x + v * v_y + (1/rho) * p, y - nu * (v_xx + v_yy)
+        momentum_x = u * u_x + v * u_y + (1/rho) * p_x - nu * (u_xx + u_yy)
+        momentum_y = u * v_x + v * v_y + (1/rho) * p_y - nu * (v_xx + v_yy)
 
 # Perdida total
     loss = (
@@ -77,7 +79,7 @@ model.compile(optimizer='adam', loss=physics_loss)
 model.fit(inputs, np.vstack((u_bc, v_bc, p_bc)).T, epochs=500, batch_size=32)
 
 # Guardar el modelo
-model.save('fluid_model.h5')
+model.save('fluid_model.keras')
 # Cargar el modelo
 #loaded_model = keras.models.load_model('fluid_model.h5', custom_objects={'physics_loss': physics_loss})
 # Evaluar el modelo
