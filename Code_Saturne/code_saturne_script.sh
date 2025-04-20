@@ -36,19 +36,19 @@ if ! dpkg -l | grep -q pyqt5-dev-tools; then
 fi
 
 # Prompt for build directory
-read -p "Enter the directory where you want to build Code Saturne (suggestion: salome_build): " target_build_dir
+read -p "Enter the directory where you want to build Code Saturne (suggestion: saturne_build): " target_build_dir
 mkdir -p "$target_build_dir"
 cd "$target_build_dir" || { echo "Failed to navigate to $target_build_dir"; exit 1; }
 
 # Run install_saturne.py
-if [[ ! -f "../target_dir/install_saturne.py" ]]; then
-    echo "install_saturne.py not found in ../target_dir"
+if [[ ! -f "../extracted_dir/code_saturne-8.3.0/install_saturne.py" ]]; then
+    echo "install_saturne.py not found in ../extracted_dir/code_saturne-8.3.0/ Please check the path."
     exit 1
 fi
-python3 ../target_dir/install_saturne.py || { echo "Failed to run install_saturne.py"; exit 1; }
+python3 ../extracted_dir/install_saturne.py || { echo "Failed to run install_saturne.py"; exit 1; }
 
 # Set environment variables
-cspath="$HOME/$extracted_dir/arch/Linux_x86_64/bin"
+cspath="$HOME/code_saturne/8.3.0/code_saturne-8.3.0/arch/Linux_x86_64/bin"
 echo "export cspath=$cspath" >> ~/.bashrc
 echo "alias code_saturne=\"$cspath/code_saturne\"" >> ~/.bashrc
 
