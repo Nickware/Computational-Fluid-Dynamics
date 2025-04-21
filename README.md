@@ -1,8 +1,8 @@
 # CFD: Computational Fluid Dynamics
 
-Repositorio con implementaciones, ejemplos y recursos relacionados con **Dinámica de fluidos computacional (CFD)**.
+Repositorio con implementaciones, ejemplos y recursos relacionados con **Dinámica de fluidos computacionales (CFD)**.
 
-> Este repositorio recopila implementaciones, scripts y recursos para distintos frameworks y librerías de dinámica de fluidos computacional (CFD), facilitando el aprendizaje, benchmarking y comparación de metodologías en simulación de fluidos.
+> Este repositorio recopila implementaciones, scripts y recursos para distintos frameworks y librerías de Dinámica de Fluidos computacionales (CFD), facilitando el aprendizaje, benchmarking y comparación de metodologías en simulación de fluidos.
 
 ---
 
