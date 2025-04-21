@@ -17,13 +17,14 @@ Repositorio con implementaciones, ejemplos y recursos relacionados con **Dinámi
 
 ---
 
-## 📦 Estructura del repositorio
+## Estructura del repositorio
 
-``CFD/
-├── Code_Saturne/
-├── Elmer/
-├── Keras/
-├── Lammps/
-├── OpenFOAM/
-├── ngsolve/
-└── README.md
+```bash
+MolecularMechanics/
+│
+├── Code_Saturne/   # Scripts de instalación (temp)
+├── Elmer/          # Scripts de instalación (temp)
+├── Keras/         # Aplicaciones
+├── Lammps/        # Scripts de instalación (temp)
+├── OpenFOAM/      # Scripts de instalación (temp)
+└── ngsolve/       # Scripts de instalación (temp)
