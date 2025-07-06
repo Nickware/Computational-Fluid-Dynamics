@@ -11,7 +11,7 @@ mkdir /tmp/elmer
 cd /tmp/elmer
 
 # clone the git repository.
-git clone git://www.github.com/ElmerCSC/elmerfem
+git clone https://github.com/ElmerCSC/elmerfem
 
 # Building the code
 # create build directory
