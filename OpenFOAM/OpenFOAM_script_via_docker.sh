@@ -1,46 +1,75 @@
-# Script Install OpenFOAM via docker 
-# Preparing installation
-# Test in Deepin 15.8
-# Autores: N.Torres
-# jntorresr@udistrital.edu.co
-# Version: 0.0.1
-# Udpate: 12-10-2018
+#!/bin/bash
+# Script to Install Docker, Docker Compose and OpenFOAM via Docker
+# Tested on Debian-based systems (e.g., Deepin)
+# Author: N. Torres 
+# Version: 2025-08-31
+# Sources:
+# Docker https://docs.docker.com/engine/install/debian/
+# Docker Compose https://docs.docker.com/compose/install/
+# OpenFOAM https://openfoam.org/download/docker/
 
-# Source info:
-# OpenFOAM
-# https://openfoam.org/download/6-linux/
-# Docker
-# https://docs.docker.com/compose/install/#install-compose
-#Installing docker for debian
-#Repositories Update
-sudo apt-get -y update
-#Download docker with curl 
-curl -fsSL https://get.docker.com/ | sh
-#Add user to docker group 
-sudo usermod -aG docker $(whoami)
-sudo chmod 666 /var/run/docker.sock
-#OPTIONAL: Composer
-sudo curl -L "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-docker-compose --version
+set -e
+
+echo "Updating packages..."
+sudo apt-get update -y
+sudo apt-get upgrade -y
+
+echo "Installing required packages for Docker..."
+sudo apt-get install -y \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+
+echo "Adding Docker's official GPG key..."
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+
+echo "Setting up the Docker repository..."
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+echo "Updating package index again..."
+sudo apt-get update -y
+
+echo "Installing Docker Engine, CLI and containerd..."
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+
+echo "Enabling and starting Docker service..."
+sudo systemctl enable docker
+sudo systemctl start docker
+
+echo "Adding current user to the docker group..."
+sudo usermod -aG docker $USER
+
+echo "Installing Docker Compose latest version..."
+DOCKER_COMPOSE_VERSION=$(curl -fsSL https://github.com/docker/compose/releases/latest | grep -oP 'tag/\K[^\"]+')
+sudo curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
-# OPTIONAL: Dockstation
-wget https://github.com/DockStation/dockstation/releases/download/v1.4.1/dockstation_1.4.1_amd64.deb
-sudo dpkg -i dockstation_1.4.1_amd64.deb
-#sudo systemctl start docker.service
-sudo service docker sttop
-sudo service docker start 
-#Installing OpenFOAM vía docker
-#Download script docker Installing openfoam6-linux 
-sudo sh -c "wget http://dl.openfoam.org/docker/openfoam6-linux -O /usr/bin/openfoam6-linux"
-sudo chmod 755 /usr/bin/openfoam6-linux
-#Launching OpenFOAM in linux
+
+echo "Verifying Docker and Docker Compose versions..."
+docker --version
+docker-compose --version
+
+echo "Downloading OpenFOAM Docker launch script..."
+sudo wget -q -O /usr/local/bin/openfoam6-linux https://dl.openfoam.org/docker/openfoam6-linux
+sudo chmod +x /usr/local/bin/openfoam6-linux
+
+echo "Setting up OpenFOAM working directory..."
 mkdir -p $HOME/OpenFOAM/${USER}-6
 cd $HOME/OpenFOAM/${USER}-6
+
+echo "Launching OpenFOAM container..."
 openfoam6-linux
-#Testing OpenFOAM 
+
+echo "Running OpenFOAM test case..."
 cd $FOAM_RUN
 cp -r $FOAM_TUTORIALS/incompressible/simpleFoam/pitzDaily .
 cd pitzDaily
 blockMesh
 simpleFoam
 paraFoam
+
+echo "OpenFOAM setup and test completed."
+echo "Please log out and back in for docker group changes to take effect."
