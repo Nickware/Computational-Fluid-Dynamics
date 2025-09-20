@@ -1,6 +1,6 @@
 # Estudio de grietas desde una perspectiva de dinámica de fluidos computacional (CFD)
 
-Es posible estudiar un modelo fenomenologico de  fractura mecánica y dinámica de impacto, para abordar el fenómeno de las grietas desde la perspectiva de dinámica de fluidos computacional (CFD). Esto implica cambios considerables y posiblemente el acoplamiento con otros métodos o softwares especializados en fluidos.
+Es posible estudiar un modelo fenomenológico de  fractura mecánica y dinámica de impacto, para abordar el fenómeno de las grietas desde la perspectiva de dinámica de fluidos computacional (CFD). Esto implica cambios considerables y posiblemente el acoplamiento con otros métodos o softwares especializados en fluidos.
 
 ## Conceptos Clave
 
@@ -59,9 +59,9 @@ En estos contextos, la dinámica de los fluidos no solo reacciona a la presencia
 El proyecto bmp en Lammps puede servir como una base robusta para estudios de fractura, aunque con algunas mejoras para capturar con precisión la interacción fluido-grieta desde una perspectiva CFD:
 
 - Requiere acoples o extensiones multimedia (LAMMPS+CFD, LAMMPS+LB, LAMMPS+FEM).
-- Puedes aprovechar módulos y herramientas especializadas para la interacción hidrodinámica a diferentes escalas, según el fenómeno de interés[^6][^7][^5].
+- Puede aprovechar módulos y herramientas especializadas para la interacción hidrodinámica a diferentes escalas, según el fenómeno de interés[^6][^7][^5].
 
-Esta adaptación te permite analizar fenómenos como fracturamiento hidráulico, transporte en grietas y efectos de presión de fluidos sobre la propagación de grietas, con potencial para explorar problemas desde materiales geológicos hasta biomateriales y microfluidos avanzados.
+Esta adaptación permite analizar fenómenos como fracturamiento hidráulico, transporte en grietas y efectos de presión de fluidos sobre la propagación de grietas, con potencial para explorar problemas desde materiales geológicos hasta biomateriales y microfluidos avanzados.
 
 **Referencias clave:**
 [^6][^7][^1][^2][^3][^11][^4][^10][^5][^8][^9]
