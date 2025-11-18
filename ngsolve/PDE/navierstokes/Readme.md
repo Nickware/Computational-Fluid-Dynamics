@@ -1,8 +1,6 @@
 # Flujo de un fluido incompresible alrededor de un obstáculo cilíndrico
 
-Este script de NGSolve simula el flujo de un fluido incompresible alrededor de un obstáculo cilíndrico, un problema clásico conocido como el flujo de Stokes o Navier-Stokes, dependiendo de los parámetros. Utiliza un método de elementos finitos para resolver las ecuaciones de movimiento.
-
-Aquí tienes un desglose del código y lo que hace cada parte:
+Este script de NGSolve simula el flujo de un fluido incompresible alrededor de un obstáculo cilíndrico, un problema clásico conocido como el flujo de Stokes o de Navier-Stokes, según los parámetros. Utiliza un método de elementos finitos para resolver las ecuaciones de movimiento.
 
 ### 1. Configuración y Geometría
 
