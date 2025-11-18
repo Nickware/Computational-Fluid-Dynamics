@@ -2,15 +2,15 @@
 
 ## Descripción
 
-Este script automatiza la descarga, instalación y configuración de Code_Saturne desde una fuente oficial dirigida por el usuario, gestionando dependencias y variables de entorno necesarias para ejecutar el software en distribuciones GNU/Linux, probado en Zorin OS 17.3. El instalador está pensado para simplificar el proceso a usuarios de ingeniería y física computacional.
+Este script automatiza la descarga, instalación y configuración de Code_Saturne desde una fuente oficial dirigida por el usuario, gestionando dependencias y variables de entorno necesarias para ejecutar el software en distribuciones GNU/Linux, probado en Zorin OS 17.3. El instalador está pensado para simplificar el proceso para usuarios de ingeniería y física.
 
 ## Características
 
-- Descarga el archivo fuente de Code_Saturne guiado por el usuario.
+- Descargar el archivo fuente de Code_Saturne guiado por el usuario.
 - Extracción y detección automática del directorio fuente.
 - Instalación de dependencias mínimas vía apt (pyqt5-dev-tools, python3-setuptools).
 - Construcción y compilación organizada en directorio separado.
-- Configura PATH y alias en ~/.bashrc para facilitar el acceso.
+- Configurar PATH y alias en ~/.bashrc para facilitar el acceso.
 - Mensajes claros de error y éxito.
 
 
@@ -23,19 +23,19 @@ Este script automatiza la descarga, instalación y configuración de Code_Saturn
 
 ## Uso
 
-1. Asigna permisos de ejecución al script:
+1. Asignar permisos de ejecución al script:
 
 ```
 chmod +x install_saturne.sh
 ```
 
-2. Ejecuta el script:
+2. Ejecutar el script:
 
 ```
 ./install_saturne.sh
 ```
 
-3. Ingresa los datos solicitados:
+3. Ingresar los datos solicitados:
    - URL oficial del archivo tar de Code_Saturne.
    - Directorio donde guardar y extraer los fuentes.
    - Directorio separado para la compilación.
@@ -49,16 +49,9 @@ chmod +x install_saturne.sh
 
 ## Notas adicionales
 
-- Si algún paso falla, revisa los mensajes en consola que especifican el código de error.
-- El script instala solo dependencias mínimas; para simulaciones avanzadas, revisa la documentación oficial de Code_Saturne.
-- Puedes modificar el script para agregar más dependencias o personalizar directorios según tus necesidades.
-
-
-## Autoría y Versionado
-
-- Autor: N. Torres
-- Versión: 0.0.5
-- Última actualización: 19-04-2025
+- Si algún paso falla, revisar los mensajes en consola que especifican el código de error.
+- El script instala solo dependencias mínimas; para simulaciones avanzadas, revisar la documentación oficial de Code_Saturne.
+- Se puede modificar el script para agregar más dependencias o personalizar directorios según sus necesidades.
 
 
 ## Soporte y referencias
