@@ -5,31 +5,31 @@ Instalación automatizada en bash sirve para descargar, compilar y preparar Open
 ***
 
 ### Identificación y preparación del sistema
-El script comienza detectando automáticamente la distribución del sistema usando `/etc/os-release`, lo que permite adaptar los comandos de instalación de paquetes según cada familia Linux. Si no logra identificar la distribución, termina con un mensaje de error.[4][1]
+El script comienza detectando automáticamente la distribución del sistema a partir de `/etc/os-release`, lo que permite adaptar los comandos de instalación de paquetes a cada familia de Linux. Si no logra identificar la distribución, se muestra un mensaje de error.[4][1]
 
 ***
 
 ### Instalación de dependencias según distribución
-Utiliza el gestor de paquetes adecuado para cada distribución, instalando todas las bibliotecas requeridas para compilar OpenFOAM:
-- **Debian/Ubuntu/Deepin**: `apt-get` instala paquetes de desarrollo, MPI, Boost, Qt, Python, CGAL, Scotch, y herramientas científicas como Gnuplot y Texinfo.
+Utilizar el gestor de paquetes adecuado para cada distribución, instalando todas las bibliotecas requeridas para compilar OpenFOAM:
+- **Debian/Ubuntu/Deepin**: `apt-get` instalar paquetes de desarrollo, MPI, Boost, Qt, Python, CGAL, Scotch y herramientas científicas como Gnuplot y Texinfo.
 - **Fedora/Red Hat/CentOS**: `dnf` utiliza grupos de desarrollo e instala los equivalentes en RPM.
-- **Arch Linux**: `pacman` instala las dependencias con la opción `--needed` para evitar duplicados.
-Esto asegura que todos los componentes nativos y científicos necesarios para OpenFOAM (y sus herramientas de post-proceso) estén presentes.[2][3][1]
+- **Arch Linux**: `pacman` instalar las dependencias con la opción `--needed` para evitar duplicados.
+Esto asegura que todos los componentes nativos y científicos necesarios para OpenFOAM (y sus herramientas de postproceso) estén disponibles.[2][3][1]
 
 ***
 
 ### Descarga y descompresión de OpenFOAM
-El script crea una carpeta `OpenFOAM` en el directorio del usuario, descarga la última versión estable (ejemplo: v2206) y el paquete “ThirdParty” con dependencias adicionales. Los archivos se descomprimen automáticamente, evitando duplicados si ya existen en la carpeta.[1][4]
+El script crea una carpeta `OpenFOAM` en el directorio del usuario, descarga la última versión estable (por ejemplo, v2206) y el paquete “ThirdParty”, con sus dependencias adicionales. Los archivos se descomprimen automáticamente, evitando duplicados si ya existen en la carpeta.[1][4]
 
 ***
 
 ### Configuración automática del entorno
-Modifica el archivo de perfil del shell (por defecto `.bashrc`, con soporte para `.zshrc` si el usuario emplea Zsh) añadiendo el comando `source .../OpenFOAM-v2206/etc/bashrc`. Esto configura todas las variables de entorno de OpenFOAM para futuras sesiones del usuario, evitando la necesidad de recordar el comando manualmente.[1]
+Modificar el archivo de perfil del shell (por defecto, `/.bashrc`, con soporte para `/.zshrc` si el usuario emplea Zsh) añadiendo el comando `source .../OpenFOAM-v2206/etc/bashrc`. Esto configura todas las variables de entorno de OpenFOAM para futuras sesiones del usuario, evitando la necesidad de ejecutar el comando manualmente.[1]
 
 ***
 
 ### Compilación de ThirdParty y OpenFOAM
-Ejecuta los scripts de compilación (`./Allwmake -j`), utilizando todos los núcleos del sistema para acelerar el proceso. Primero compila las dependencias externas y luego OpenFOAM, permitiendo una instalación controlada y adaptada a cada sistema.[3][1]
+Ejecutar los scripts de compilación (`./Allwmake -j`), aprovechando todos los núcleos del sistema para acelerar el proceso. Primero compila las dependencias externas y luego OpenFOAM, lo que permite una instalación controlada y adaptada a cada sistema.[3][1]
 
 ***
 
@@ -39,7 +39,7 @@ Al finalizar, corre `foamInstallationTest -short` para comprobar que la instalac
 ***
 
 ### Resumiendo
-Este script está diseñado para facilitar y automatizar el proceso complejo de instalar OpenFOAM desde fuentes en cualquier distribución principal de Linux, resolviendo automáticamente dependencias, configurando el entorno y validando la instalación al final. Es especialmente útil para usuarios académicos, investigadores o profesionales que requieren control completo sobre su entorno CFD y máxima compatibilidad con sus sistemas.[2][3][4][1]
+Este script está diseñado para facilitar y automatizar el complejo proceso de instalar OpenFOAM desde fuentes en cualquier distribución principal de Linux, resolviendo las dependencias, configurando el entorno y validando la instalación al final. Es especialmente útil para usuarios académicos, investigadores o profesionales que requieren un control completo de su entorno CFD y máxima compatibilidad con sus sistemas.[2][3][4][1]
 
 [1](https://openfoam.org/download/source/)
 [2](https://openfoam.org/version/fedora/)
@@ -53,7 +53,7 @@ Este script automatiza la instalación de Docker, Docker Compose y la ejecución
 ***
 
 ### Actualización e instalación de dependencias básicas
-El proceso comienza actualizando el sistema y asegurando que estén presentes utilidades esenciales como `curl`, `gnupg` y certificados raíz. Estas herramientas son necesarias para añadir repositorios oficiales y descargar archivos de manera segura.[1]
+El proceso comienza actualizando el sistema y asegurando que estén presentes utilidades esenciales como `curl`, `gnupg` y los certificados raíz. Estas herramientas son necesarias para añadir repositorios oficiales y descargar archivos de manera segura.[1]
 
 ***
 
@@ -62,25 +62,25 @@ El script crea la carpeta de llaves, importa la firma oficial de Docker y config
 
 - Usa los últimos métodos recomendados por Docker para añadir el repositorio y verificar la integridad.
 - Habilita y arranca el servicio Docker automáticamente.
-- Añade el usuario actual al grupo `docker` permitiendo ejecutar contenedores sin privilegios de root (tras reiniciar sesión).
+- Añade el grupo `docker` para ejecutar contenedores sin privilegios de root (tras reiniciar sesión).
 
 ***
 
 ### Instalación dinámica de Docker Compose
-Detecta automáticamente la última versión disponible de Docker Compose directamente desde GitHub y la instala en `/usr/local/bin`. Esto evita la obsolescencia del gestor de orquestación de contenedores, permitiendo manejar compuestos y servicios multi-contenedor con las últimas características.[3]
+Detecta automáticamente la última versión disponible de Docker Compose desde GitHub y la instala en `/usr/local/bin`. Esto evita la obsolescencia del gestor de orquestación de contenedores, permitiendo manejar compuestos y servicios multi-contenedor con las últimas características.[3]
 
 ***
 
 ### Verificación de versiones y prueba del entorno
-Se verifica la instalación mostrando las versiones de Docker y Docker Compose, asegurando que ambos estén correctamente instalados y accesibles desde la terminal.[3]
+Se verifica la instalación de Docker y Docker Compose, asegurando que ambos estén correctamente instalados y accesibles desde la terminal.[3]
 
 ***
 
 ### Instalación y ejecución de OpenFOAM mediante Docker
-Descarga el script launcher oficial de OpenFOAM para Docker y lo coloca en `/usr/local/bin` con permisos de ejecución. Crea una carpeta de trabajo personalizada y lanza el contenedor de OpenFOAM con ese script.
+Descargar el script de lanzamiento oficial de OpenFOAM para Docker y colocarlo en `/usr/local/bin` con permisos de ejecución. Crea una carpeta de trabajo personalizada y lanza el contenedor de OpenFOAM con ese script.
 
 - Evita conflictos de instalación y dependencias, ya que todo se ejecuta dentro de un contenedor encapsulado.
-- La ejecución es compatible tanto con simulaciones interactivas como en batch.
+- La ejecución es compatible tanto con simulaciones interactivas como con batch.
 
 ***
 
@@ -88,19 +88,19 @@ Descarga el script launcher oficial de OpenFOAM para Docker y lo coloca en `/usr
 Tras lanzar el contenedor, el script crea un entorno de trabajo y ejecuta un caso tutorial clásico (`pitzDaily`) usando comandos básicos de OpenFOAM:
 
 - `blockMesh`: genera la malla del dominio.
-- `simpleFoam`: corre el solver de flujo estacionario.
-- `paraFoam`: abre resultados para post-procesamiento visual.
+- `simpleFoam`: ejecuta el solver de flujo estacionario.
+- `paraFoam`: abre los resultados para el postprocesamiento visual.
 
-Esto valida que la instalación y el entorno Docker están completamente funcionales.
+Esto confirma que la instalación y el entorno Docker están completamente funcionales.
 
 ***
 
 ### Ventajas y observaciones
-- El usuario solo necesita Docker, sin instalar ni compilar decenas de librerías científicas y dependencias.
-- OpenFOAM se ejecuta aislado y reproducible, facilitando la portabilidad y eliminación de conflictos entre versiones.
-- Al finalizar, el script recuerda al usuario salir y entrar de sesión para que el grupo `docker` tome efecto.[2][1]
+- El usuario solo necesita Docker, sin instalar ni compilar decenas de librerías científicas ni sus dependencias.
+- OpenFOAM se ejecuta de forma reproducible, lo que facilita la portabilidad y la eliminación de conflictos entre versiones.
+- Al finalizar, el script recuerde al usuario que salga y vuelva a entrar de sesión para que el grupo `docker` tome efecto.[2][1]
 
-Este enfoque es ideal para investigadores, estudiantes y profesionales que buscan rapidez, facilidad, y portabilidad al instalar OpenFOAM en sistemas Linux modernos mediante Docker.[1][2][3]
+Este enfoque es ideal para investigadores, estudiantes y profesionales que buscan rapidez, facilidad y portabilidad al instalar OpenFOAM en sistemas Linux modernos mediante Docker.[1][2][3]
 
 [1](https://docs.docker.com/engine/install/debian/)
 [2](https://cloudhpc.cloud/2024/08/26/run-openfoam-with-docker/)
