@@ -44,7 +44,7 @@ Se deberá ver el cuadrado en la ventana gráfica; conviene rotar/zoom para comp
 1. Menú **Model → Setup...**
    - Simulation type: **Steady state**.
    - Output file: por ejemplo `case`.
-   - Deja el resto por defecto y pulsa OK.[nic.funet+1](https://www.nic.funet.fi/index/elmer/doc/ElmerModelsManual.pdf)
+   - Dejar el resto por defecto y pulsar OK.[nic.funet+1](https://www.nic.funet.fi/index/elmer/doc/ElmerModelsManual.pdf)
 2. Menú **Model → Equations... → Add**
    - Marcar **Heat Equation**.
    - Dejar “Active” y “Apply to all bodies”.
@@ -67,12 +67,12 @@ No hace falta Body Force porque no habrá fuente de calor volumétrica en este t
      - Name: `HotSide`.
      - En pestaña **Heat Equation**, marca **Temperature** y pon `100.0`.
      - OK.
-     - Luego, en la ventana de malla, selecciona el lado izquierdo (se puede usar “Set boundary properties” o doble clic en el número de frontera asociado) y asigna `HotSide`.[arek.pajak+1](https://www.arek.pajak.info.pl/wp-content/uploads/2013/09/ElmerTutorials.pdf)
+     - Luego, en la ventana de malla, seleccionar el lado izquierdo (se puede usar “Set boundary properties” o doble clic en el número de frontera asociado) y asignar `HotSide`.[arek.pajak+1](https://www.arek.pajak.info.pl/wp-content/uploads/2013/09/ElmerTutorials.pdf)
 2. Condición 2 – lado frío:
    - Add de nuevo:
      - Name: `ColdSide`.
      - Temperature = `0.0`.
-     - OK, y asígnala al lado derecho.[arek.pajak+1](https://www.arek.pajak.info.pl/wp-content/uploads/2013/09/ElmerTutorials.pdf)
+     - OK, y asígnarla al lado derecho.[arek.pajak+1](https://www.arek.pajak.info.pl/wp-content/uploads/2013/09/ElmerTutorials.pdf)
 3. Condición 3 – lados aislados:
    - Add:
      - Name: `Insulated`.
