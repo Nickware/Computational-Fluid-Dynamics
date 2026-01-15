@@ -1,3 +1,13 @@
+# Code Saturne
+
+Es un programa libre y de código abierto especializado en la dinámica de fluidos computacional (CFD, por sus siglas en inglés). Fue desarrollado desde 1997 por la división de Investigación y Desarrollo de Électricité de France (EDF) y está distribuido bajo la licencia GNU General Public License​.
+
+Code_Saturne permite simular flujos de fluidos tanto incompresibles como compresibles, con o sin transferencia de calor y turbulencia. Además, dispone de módulos dedicados para física específica como transferencia radiativa, combustión, magnetohidrodinámica, flujos bifásicos y aplicaciones atmosféricas, entre otros​.
+
+El software es multiplataforma: funciona en Linux, Mac OS X, sistemas tipo Unix y también en Windows a través del Subsistema de Windows para Linux. Está escrito principalmente en Fortran y C, con scripts en Python y una interfaz gráfica desarrollada en PyQt​. Es compatible con una amplia variedad de formatos de malla y puede integrarse con otras herramientas de simulación como Salome Meca y ParaView para el pre y post-procesamiento de datos​.
+
+Code_Saturne es una opción robusta y flexible para simulaciones CFD, ampliamente utilizada en investigación, industria y educación, sobre todo en proyectos que requieren herramientas libres y personalizables.
+
 # Instalador Bash para Code_Saturne
 
 ## Descripción
