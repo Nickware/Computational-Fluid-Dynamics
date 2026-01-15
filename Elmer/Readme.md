@@ -1,3 +1,46 @@
+# Elmer CSC
+
+Elmer es un software de simulación multifísica de código abierto, desarrollado principalmente por el CSC – IT Center for Science de Finlandia[1][2][3]. Está diseñado para resolver problemas complejos mediante el método de elementos finitos (FEM), lo que lo hace especialmente útil en ingeniería y ciencias aplicadas.
+
+## Características principales de Elmer
+
+- Permite modelar y resolver ecuaciones diferenciales parciales asociadas a fenómenos físicos como:
+  - Mecánica de sólidos y estructuras
+  - Transferencia de calor
+  - Electromagnetismo
+  - Dinámica de fluidos
+  - Acústica, entre otros[1][5][6]
+
+- Es multiplataforma: funciona en sistemas Unix, GNU/Linux, Windows y Mac[1][5].
+- Está compuesto por varios módulos, entre los que destacan:
+  - **ElmerGUI**: interfaz gráfica para la definición de modelos y condiciones de contorno.
+  - **ElmerSolver**: el núcleo que realiza los cálculos numéricos.
+  - **ElmerPost**: herramienta para visualizar y analizar los resultados.
+  - **ElmerGrid**: para la creación y manipulación de mallas[1][5][6].
+
+- Es software libre y de código abierto, distribuido bajo licencia GPL, lo que permite su uso, modificación y distribución sin costo[1][2][6].
+- Dispone de documentación extensa, tutoriales y una comunidad activa de usuarios[5][6].
+
+## Aplicaciones
+
+Elmer es ampliamente utilizado en investigación, educación y la industria para simular y analizar problemas donde intervienen múltiples fenómenos físicos acoplados. Su capacidad de integración con otras herramientas y formatos de malla lo hace versátil para distintos flujos de trabajo en ingeniería y ciencia[1][3][5].
+
+## Comparación con otros programas
+
+Elmer se compara con otros softwares de elementos finitos, tanto comerciales (como ANSYS o Matlab PDETool) como de código abierto (OpenFEM, FreeFem++), destacando por su gratuidad y flexibilidad[1].
+
+Elmer es una potente herramienta de simulación numérica para problemas multifísicos, ideal tanto para el aprendizaje como para la investigación y el desarrollo profesional en ingeniería y ciencias aplicadas[2][3][5].
+
+[1](https://es.wikipedia.org/wiki/Elmer_FEM_solver)
+[2](https://edutools.tec.mx/es/colecciones/tecnologias/elmer)
+[3](https://www.elmerfem.org/blog/)
+[4](https://www.youtube.com/watch?v=4Ijcb0aMcig)
+[5](https://dspace.ups.edu.ec/bitstream/123456789/9004/1/UPS-CT001707.pdf)
+[6](https://www.dma.uvigo.es/files/cursos/elmerfem/Sesion3UDC.pdf)
+[7](https://www.cfd-online.com/Wiki/ELMER)
+[8](https://www.elmerfem.org/blog/general/elmer-version-8-4/)
+[9](https://sv.linkedin.com/in/leomarqz)
+
 ## Elmer FEM - Script de Instalación
 
 Este repositorio contiene un script para la descarga, compilación e instalación de **Elmer FEM** a partir del código fuente, orientado a sistemas Linux. Elmer FEM es un software de elementos finitos para simulaciones multiphysicas.
