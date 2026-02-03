@@ -46,7 +46,7 @@ Este script está diseñado para facilitar y automatizar el complejo proceso de 
 [3](https://wiki.archlinux.org/title/OpenFOAM)
 [4](https://help.sim-flow.com/installation/linux/openfoam-installation)
 
-# Instalacióm de Openfoam via Docker
+# Instalación de Openfoam via Docker
 
 Este script automatiza la instalación de Docker, Docker Compose y la ejecución de OpenFOAM vía contenedores Docker en sistemas basados en Debian, como Deepin, Ubuntu y similares. Su objetivo principal es facilitar la configuración rápida de un entorno CFD moderno y portátil sin necesidad de compilar manualmente ni instalar dependencias complejas, aprovechando las tecnologías de contenedores.[1][2]
 
