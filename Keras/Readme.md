@@ -5,11 +5,11 @@ Script diseñado para cargar un modelo entrenado de TensorFlow/Keras que predice
 
 ### Descripción del script
 
-- Importa las librerías necesarias: NumPy para manejo numérico, Matplotlib para visualización, y TensorFlow/Keras para cargar el modelo de red neuronal.
+- Importa las librerías necesarias: NumPy para manejo numérico, Matplotlib para visualización y TensorFlow/Keras para cargar el modelo de red neuronal.
 - Carga un modelo guardado previamente llamado `fluid_model.keras` sin compilarlo (probablemente porque sólo se usará para inferencia/predicción).
-- Define un dominio espacial 2D con líneas equidistantes en x e y entre -1 y 1, y construye una malla usando `np.meshgrid`.
-- Crea un arreglo para el tiempo `t_grid` con ceros, asumiendo para flujo estacionario (sin dependencia temporal).
-- Prepara la entrada para el modelo juntando los vectores x, y y t en una matriz con la forma adecuada para el modelo.
+- Define un dominio espacial 2D con líneas equidistantes en $x$ e $y$ entre $-1$ y $1$, y construye una malla usando `np.meshgrid`.
+- Crea un arreglo para el tiempo `t_grid` con ceros, asumiendo un flujo estacionario (sin dependencia temporal).
+- Prepara la entrada para el modelo juntando los vectores $x$, $y$ y $t$ en una matriz con la forma adecuada para el modelo.
 - Usa el modelo para predecir las salidas sobre la malla. Se asume que la salida tiene al menos tres componentes: 
   - $$u$$ (componente x de velocidad),
   - $$v$$ (componente y de velocidad),
@@ -33,12 +33,12 @@ Script diseñado para visualizar el campo de velocidades de un fluido predicho p
 
 ### Estructura y propósito del script
 
-- Importa las librerías necesarias: NumPy para manipulación de datos, Matplotlib para graficar, y TensorFlow/Keras para cargar el modelo.
+- Importa las librerías necesarias: NumPy para manipulación de datos, Matplotlib para graficar y TensorFlow/Keras para cargar el modelo.
 - Carga un modelo guardado (`fluid_model.keras`) que ha sido entrenado para predecir el comportamiento de un flujo (campos de velocidad y presión) en cierto dominio espacial.
-- Define un dominio bidimensional para $$x$$ y $$y$$, desde -1 hasta 1, usando una malla de 100x100 puntos.
+- Define un dominio bidimensional para $$x$$ y $$y$$, desde $-1$ hasta $1$, usando una malla de $100x100$ puntos.
 - Crea una matriz para el tiempo (`t_grid`), llena de ceros, lo que representa un flujo estacionario (sin dependencia temporal).
 - Junta las coordenadas y el tiempo en una matriz de entrada que es compatible con la red.
-- Obtiene las predicciones del modelo: la salida tiene al menos tres componentes (u, v, p).
+- Obtiene las predicciones del modelo: la salida tiene al menos tres componentes $(u, v, p)$.
 - Extrae los componentes de velocidad ($$u, v$$) y los reordena en la forma de la malla.
 - Opcionalmente extrae la presión ($$p$$), aunque no la grafica.
 - Visualiza el campo de velocidades con `plt.quiver`, que dibuja flechas en cada punto del dominio para mostrar la dirección y magnitud del flujo.
