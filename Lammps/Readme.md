@@ -66,8 +66,6 @@ Esta adaptación permite analizar fenómenos como fracturamiento hidráulico, tr
 **Referencias clave:**
 [^6][^7][^1][^2][^3][^11][^4][^10][^5][^8][^9]
 
-<div style="text-align: center">⁂</div>
-
 [^1]: https://core.ac.uk/download/pdf/4432994.pdf
 
 [^2]: http://dspace.mit.edu/handle/1721.1/68616
