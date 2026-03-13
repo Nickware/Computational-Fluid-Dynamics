@@ -16,10 +16,10 @@ Elmer es un software de simulación multifísica de código abierto, desarrollad
   - **ElmerGUI**: interfaz gráfica para la definición de modelos y condiciones de contorno.
   - **ElmerSolver**: el núcleo que realiza los cálculos numéricos.
   - **ElmerPost**: herramienta para visualizar y analizar los resultados.
-  - **ElmerGrid**: para la creación y manipulación de mallas[1][5][6].
+  - **ElmerGrid**: para la creación y manipulación de mallas [1][5][6].
 
 - Es software libre y de código abierto, distribuido bajo licencia GPL, lo que permite su uso, modificación y distribución sin costo[1][2][6].
-- Dispone de documentación extensa, tutoriales y una comunidad activa de usuarios[5][6].
+- Dispone de documentación extensa, tutoriales y una comunidad activa de usuarios [5][6].
 
 ## Aplicaciones
 
@@ -118,6 +118,3 @@ export PATH=$PATH:$ELMER_HOME/bin
 - Añadir soporte para la instalación en entornos virtuales o en contenedores.
 - Mejorar la gestión de errores y de mensajes informativos.
 - Documentar la compatibilidad con nuevas versiones de Elmer y sus dependencias.
-
-**Contribuciones y mejoras son bienvenidas.**
-
