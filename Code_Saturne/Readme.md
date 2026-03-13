@@ -2,9 +2,9 @@
 
 Es un programa libre y de código abierto especializado en la dinámica de fluidos computacional (CFD, por sus siglas en inglés). Fue desarrollado desde 1997 por la división de Investigación y Desarrollo de Électricité de France (EDF) y está distribuido bajo la licencia GNU General Public License​.
 
-Code_Saturne permite simular flujos de fluidos tanto incompresibles como compresibles, con o sin transferencia de calor y turbulencia. Además, dispone de módulos dedicados para física específica como transferencia radiativa, combustión, magnetohidrodinámica, flujos bifásicos y aplicaciones atmosféricas, entre otros​.
+Code_Saturne permite simular flujos de fluidos tanto incompresibles como compresibles, con o sin transferencia de calor y turbulencia. Además, dispone de módulos dedicados a la física específica como transferencia radiativa, combustión, magnetohidrodinámica, flujos bifásicos y aplicaciones atmosféricas, entre otros​.
 
-El software es multiplataforma: funciona en Linux, Mac OS X, sistemas tipo Unix y también en Windows a través del Subsistema de Windows para Linux. Está escrito principalmente en Fortran y C, con scripts en Python y una interfaz gráfica desarrollada en PyQt​. Es compatible con una amplia variedad de formatos de malla y puede integrarse con otras herramientas de simulación como Salome Meca y ParaView para el pre y post-procesamiento de datos​.
+El software es multiplataforma: funciona en Linux, Mac OS X, sistemas tipo Unix y también en Windows a través del Subsistema de Windows para Linux. Está escrito principalmente en Fortran y C, con scripts en Python y una interfaz gráfica desarrollada en PyQt​. Es compatible con una amplia variedad de formatos de malla y puede integrarse con otras herramientas de simulación como Salome Meca y ParaView para el pre y postprocesamiento de datos​.
 
 Code_Saturne es una opción robusta y flexible para simulaciones CFD, ampliamente utilizada en investigación, industria y educación, sobre todo en proyectos que requieren herramientas libres y personalizables.
 
@@ -12,14 +12,14 @@ Code_Saturne es una opción robusta y flexible para simulaciones CFD, ampliament
 
 ## Descripción
 
-Este script automatiza la descarga, instalación y configuración de Code_Saturne desde una fuente oficial dirigida por el usuario, gestionando dependencias y variables de entorno necesarias para ejecutar el software en distribuciones GNU/Linux, probado en Zorin OS 17.3. El instalador está pensado para simplificar el proceso para usuarios de ingeniería y física.
+Este script automatiza la descarga, instalación y configuración de Code_Saturne desde una fuente oficial dirigida por el usuario, gestionando dependencias y variables de entorno necesarias para ejecutar el software en distribuciones de GNU/Linux, probado en Zorin OS 17.3. El instalador está pensado para simplificar el proceso para usuarios de ingeniería y física.
 
 ## Características
 
 - Descargar el archivo fuente de Code_Saturne guiado por el usuario.
-- Extracción y detección automática del directorio fuente.
+- Extracción y detección automáticas del directorio fuente.
 - Instalación de dependencias mínimas vía apt (pyqt5-dev-tools, python3-setuptools).
-- Construcción y compilación organizada en directorio separado.
+- Construcción y compilación organizadas en directorio separado.
 - Configurar PATH y alias en ~/.bashrc para facilitar el acceso.
 - Mensajes claros de error y éxito.
 
@@ -28,7 +28,7 @@ Este script automatiza la descarga, instalación y configuración de Code_Saturn
 
 - GNU/Linux (Zorin OS 17.3 recomendado, otras distribuciones derivadas de Ubuntu y Debian compatibles).
 - Python 3, wget, tar, apt, bash.
-- Permisos sudo para instalación de dependencias.
+- Permisos sudo para la instalación de dependencias.
 
 
 ## Uso
@@ -73,11 +73,7 @@ chmod +x install_saturne.sh
 
 ## Licencia
 
-Este script se distribuye bajo términos de uso libre para propósito educacional y académico. Adaptable a necesidades institucionales.
-
-***
-
-<div style="text-align: center">⁂</div>
+Este script se distribuye bajo términos de uso libre para propósitos educacionales y académicos. Adaptable a necesidades institucionales.
 
 [^1]: https://feaforall.com/installing-salome-cfd-with-code-saturne-7-0-in-2022/
 
