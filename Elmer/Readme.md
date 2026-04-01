@@ -41,80 +41,95 @@ Elmer es una potente herramienta de simulación numérica para problemas multif�
 [8](https://www.elmerfem.org/blog/general/elmer-version-8-4/)
 [9](https://sv.linkedin.com/in/leomarqz)
 
-## Elmer FEM - Script de Instalación
+# Instalador automatizado de Elmer FEM
 
-Este repositorio contiene un script para la descarga, compilación e instalación de **Elmer FEM** a partir del código fuente, orientado a sistemas Linux. Elmer FEM es un software de elementos finitos para simulaciones multiphysicas.
+Este repositorio contiene un script Bash para automatizar la instalación de **Elmer FEM** desde código fuente en sistemas Linux basados en Debian/Ubuntu. Elmer es un software de simulación multiphysics basado en el método de elementos finitos (FEM), y su desarrollo oficial se mantiene en el repositorio `ElmerCSC/elmerfem`, usando `devel` como rama activa de desarrollo. [web:75][web:77][web:81]
 
-### Resumen del Script
+## Objetivo del script
 
-El script automatiza los siguientes pasos:
+El propósito del script es simplificar al máximo la instalación de Elmer FEM, evitando errores frecuentes por dependencias faltantes, permisos insuficientes, repositorios ya descargados o configuraciones incorrectas de CMake. [web:33][web:37]
 
-- Creación de un directorio temporal para la descarga y la compilación.
-- Clonación del repositorio oficial de Elmer FEM.
-- Configuración de la compilación con CMake, habilitando la GUI, el soporte para MPI y Paraview.
-- Compilación e instalación en `/opt/Elmer`.
-- Configuración de las variables de entorno necesarias para el uso de Elmer.
+## Qué hace el script
 
+El script realiza automáticamente las siguientes tareas:
 
-### Cambios y Actualizaciones Recomendadas
+- Instalar dependencias del sistema con `apt`, incluyendo compiladores, CMake, MPI, BLAS/LAPACK y librerías necesarias para la GUI basada en Qt5.
+- Verificar que herramientas críticas como `git`, `cmake`, `make`, `gcc`, `g++` y `gfortran` estén disponibles.
+- Crear los directorios de trabajo temporales y el directorio de instalación.
+- Clonar el repositorio de Elmer FEM si no existe, o lo actualiza si ya fue descargado previamente.
+- Usar una carpeta de compilación separada (`build`) para evitar errores por compilación dentro del árbol fuente.
+- Configurar la compilación con soporte para GUI, MPI y ParaView.
+- Compilar e instalar Elmer FEM.
+- Añadir variables de entorno a `~/.bashrc` para facilitar el uso posterior de los binarios instalados. [web:33][web:37][web:77]
 
-> **Nota:** El script original fue probado en Deepin 15.8 (2018). Desde entonces, han cambiado las versiones de las dependencias y las mejores prácticas de instalación. Ha de revisarse y actualizarse en los siguientes aspectos antes de usar el script en sistemas actuales.
+## Estructura general del script
 
-#### 1. Versiones de Dependencias
+### 1. Instalación automática de dependencias
 
-- **CMake:** Usar versiones recientes (≥3.16) para una mejor compatibilidad.
-- **Compiladores:** gcc y gfortran actualizados (≥9.0).
-- **MPI:** Instalar `openmpi` o `mpich`, según la preferencia y la compatibilidad.
-- **Qt y Qwt:** Verificar las versiones compatibles con la GUI de Elmer.
-- **Paraview:** Instalar la versión recomendada por la documentación de Elmer.
-- **BLAS y LAPACK:** Usar implementaciones optimizadas como `libopenblas-dev` o `liblapack-dev`.
+El script detecta si el sistema dispone de `apt` y, en ese caso, instala automáticamente los paquetes necesarios. Esto reduce fallos por falta de herramientas como `gfortran`, que es obligatorio para compilar Elmer, o módulos adicionales de Qt5 requeridos por `ElmerGUI`. [web:23][web:53][web:58]
 
+Entre las dependencias incluidas están:
 
-#### 2. Instalación de Dependencias
+- `git`, `cmake`, `build-essential`, `gfortran`
+- `libopenmpi-dev`, `openmpi-bin`
+- `libblas-dev`, `liblapack-dev`
+- `qtbase5-dev`, `qttools5-dev`, `libqwt-qt5-dev`
+- `qtscript5-dev`, `libqt5script5`
+- `libqt5svg5-dev`
+- `libgl1-mesa-dev`, `libxt-dev` [web:33][web:37][web:49][web:58]
 
-Ejemplo para sistemas basados en Debian/Ubuntu:
+### 2. Validación de herramientas críticas
+
+Después de instalar dependencias, el script verifica que los comandos esenciales realmente estén disponibles en el sistema. Esto permite detectar fallos de instalación de forma temprana y detener el proceso con mensajes claros. [web:23][web:33]
+
+### 3. Preparación de directorios
+
+Se crea un directorio temporal en `/tmp/elmer` para trabajar con el código fuente y un directorio de instalación en `/opt/Elmer`. El uso de `mkdir -p` evita errores cuando los directorios ya existen. [web:33]
+
+### 4. Manejo del repositorio
+
+Si el repositorio no existe, el script lo clona desde GitHub. Si ya existe y es un repositorio Git válido, cambia a la rama `devel` y ejecuta `git pull origin devel` para actualizar el código sin volver a descargarlo por completo. [web:77][web:81]
+
+### 5. Compilación fuera del árbol fuente
+
+La configuración de CMake se ejecuta dentro de un directorio `build` separado. Esta práctica evita errores como `No SOURCES given to target`, que pueden aparecer cuando se intenta compilar directamente dentro del directorio fuente de Elmer. [web:65]
+
+### 6. Compilación e instalación
+
+El script compila usando todos los núcleos disponibles con `make -j$(nproc)` e instala los binarios con `sudo make install`. Esto acelera el proceso y deja la instalación organizada dentro de `/opt/Elmer`. [web:33][web:37]
+
+### 7. Variables de entorno
+
+Finalmente, se agregan variables como `ELMER_HOME`, `PATH`, `LD_LIBRARY_PATH` y `MANPATH` al archivo `~/.bashrc`, permitiendo usar Elmer desde cualquier terminal una vez recargado el entorno. [web:33]
+
+## Consideraciones importantes
+
+- El script está orientado a distribuciones basadas en Debian/Ubuntu porque usa `apt` para instalar paquetes. [web:33][web:37]
+- Algunos módulos gráficos de `ElmerGUI` dependen de paquetes Qt5 adicionales, por lo que pueden aparecer nuevos ajustes según la versión de la distribución. [web:49][web:53][web:58]
+- La rama `devel` de ElmerFEM es la rama activa de desarrollo, por lo que puede cambiar con frecuencia. [web:77]
+- El soporte de ParaView puede requerir ajustes adicionales en algunas distribuciones modernas. [web:33]
+
+## Uso esperado
+
+Ejecutar el script con permisos suficientes para que pueda instalar paquetes y escribir en `/opt/Elmer`:
 
 ```bash
-sudo apt update
-sudo apt install git cmake g++ gfortran libopenmpi-dev openmpi-bin qtbase5-dev libqwt-qt5-dev paraview libblas-dev liblapack-dev
+chmod +x install_elmer.sh
+./install_elmer.sh
 ```
 
-> **Revisar los nombres de los paquetes** en otras distribuciones (como Fedora, Arch, etc.).
-
-#### 3. Permisos
-
-- La instalación en `/opt/Elmer` requiere permisos de superusuario.
-- Se recomienda ejecutar el script con `sudo` o modificar el directorio de instalación a una ruta local si no se cuenta con los permisos de root.
-
-
-#### 4. Personalización y Compatibilidad
-
-- El script puede requerir ajustes para otras distribuciones de Linux.
-- Revisar rutas y nombres de los paquetes según el sistema operativo.
-- Considerar el uso de entornos virtuales o de contenedores (Docker) para mayor portabilidad.
-
-
-#### 5. Variables de Entorno
-
-Agregar las siguientes líneas al archivo `~/.bashrc` o `~/.profile` para que Elmer esté disponible en cada sesión:
+Al finalizar, recargar el entorno:
 
 ```bash
-export ELMER_HOME=/opt/Elmer/
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ELMER_HOME/lib
-export PATH=$PATH:$ELMER_HOME/bin
+source ~/.bashrc
 ```
 
+Luego probar la instalación con:
 
-### Consideraciones Importantes
+```bash
+ElmerGUI
+```
 
-- **Dependencias:** Instalar todas las dependencias antes de ejecutar el script.
-- **Permisos:** Algunas operaciones requieren permisos de superusuario.
-- **Personalización:** Adaptar el script a la distribución y el entorno de trabajo.
+## Estado del script
 
-
-### Para Futuras Versiones
-
-- Actualizar el script para detectar automáticamente las versiones de las dependencias y sugerir instalaciones.
-- Añadir soporte para la instalación en entornos virtuales o en contenedores.
-- Mejorar la gestión de errores y de mensajes informativos.
-- Documentar la compatibilidad con nuevas versiones de Elmer y sus dependencias.
+Este script **sigue en desarrollo**. Todavía puede requerir ajustes adicionales según la versión de Ubuntu/Debian, cambios en dependencias de Qt, actualizaciones del repositorio ElmerFEM o diferencias entre entornos de compilación.
