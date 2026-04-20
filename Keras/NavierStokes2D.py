@@ -83,8 +83,8 @@ model.save('fluid_model.keras')
 # Cargar el modelo
 #loaded_model = keras.models.load_model('fluid_model.h5', custom_objects={'physics_loss': physics_loss})
 # Evaluar el modelo
-#x_test = np.random.uniform(-1, 1, 100)
-#y_test = np.random.uniform(-1, 1, 100)
-#t_test = np.zeros_like(x_test) # flujo estacionario
-#inputs_test = np.vstack((x_test, y_test, t_test)).T
-#outputs_test = loaded_model.predict(inputs_test)
+x_test = np.random.uniform(-1, 1, 100)
+y_test = np.random.uniform(-1, 1, 100)
+t_test = np.zeros_like(x_test) # flujo estacionario
+inputs_test = np.vstack((x_test, y_test, t_test)).T
+outputs_test = loaded_model.predict(inputs_test)
