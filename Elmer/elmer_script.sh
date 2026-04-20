@@ -4,7 +4,7 @@
 # Autores: N.Torres
 # jntorresr@udistrital.edu.co
 # Version: 2.0
-# Udpate: 31-03-2023
+# Udpate: 18-04-2026
 
 #!/bin/bash
 set -e  # Salir ante cualquier error
@@ -19,6 +19,7 @@ echo "=== Instalador Elmer FEM ==="
 echo "Instalando dependencias requeridas..."
 if command -v apt >/dev/null 2>&1; then
     sudo apt update
+    sudo apt upgrade
     sudo apt install -y \
     git cmake build-essential gfortran \
     libopenmpi-dev openmpi-bin \
