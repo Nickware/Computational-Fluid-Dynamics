@@ -1,88 +1,90 @@
-# Code Saturne
+# Code_Saturne
 
-Es un programa libre y de código abierto especializado en la dinámica de fluidos computacional (CFD, por sus siglas en inglés). Fue desarrollado desde 1997 por la división de Investigación y Desarrollo de Électricité de France (EDF) y está distribuido bajo la licencia GNU General Public License​.
+**Code_Saturne** es un software libre y de código abierto especializado en la **Dinámica de Fluidos Computacional (CFD)**. Desarrollado desde 1997 por la división de I+D de *Électricité de France (EDF)*, se distribuye bajo la licencia GNU GPL.
 
-Code_Saturne permite simular flujos de fluidos tanto incompresibles como compresibles, con o sin transferencia de calor y turbulencia. Además, dispone de módulos dedicados a la física específica como transferencia radiativa, combustión, magnetohidrodinámica, flujos bifásicos y aplicaciones atmosféricas, entre otros​.
+Permite simular flujos de fluidos incompresibles o compresibles, con o sin transferencia de calor y turbulencia. Incluye módulos para física avanzada como:
+-   Transferencia radiativa.
+-   Combustión y magnetohidrodinámica.
+-   Flujos bifásicos.
+-   Aplicaciones atmosféricas.
 
-El software es multiplataforma: funciona en Linux, Mac OS X, sistemas tipo Unix y también en Windows a través del Subsistema de Windows para Linux. Está escrito principalmente en Fortran y C, con scripts en Python y una interfaz gráfica desarrollada en PyQt​. Es compatible con una amplia variedad de formatos de malla y puede integrarse con otras herramientas de simulación como Salome Meca y ParaView para el pre y postprocesamiento de datos​.
+El software es multiplataforma (Linux, macOS, Windows vía WSL), escrito en **Fortran** y **C**, con herramientas de gestión en **Python** e interfaz gráfica en **PyQt**. Se integra perfectamente con herramientas como **Salome Meca** y **ParaView**.
 
-Code_Saturne es una opción robusta y flexible para simulaciones CFD, ampliamente utilizada en investigación, industria y educación, sobre todo en proyectos que requieren herramientas libres y personalizables.
+---
 
 # Instalador Bash para Code_Saturne
 
 ## Descripción
-
-Este script automatiza la descarga, instalación y configuración de Code_Saturne desde una fuente oficial dirigida por el usuario, gestionando dependencias y variables de entorno necesarias para ejecutar el software en distribuciones de GNU/Linux, probado en Zorin OS 17.3. El instalador está pensado para simplificar el proceso para usuarios de ingeniería y física.
+Este script automatiza la descarga, configuración y compilación de **Code_Saturne**. Está diseñado para superar la limitación del instalador estándar de Python, el cual se detiene tras generar el archivo de configuración. Este script gestiona las dos fases de instalación de forma continua, ideal para entornos de ingeniería y física en distribuciones derivadas de Debian/Ubuntu (probado en **Zorin OS 17.3**).
 
 ## Características
+*   **Versatilidad de Fuente:** Permite descargar el código desde la URL oficial o utilizar un archivo `.tar.gz` local preexistente.
+*   **Instalación de Dependencias:** Configura automáticamente el compilador (`gcc`, `gfortran`) y librerías científicas (`libxml2`, `MPI`, etc.).
+*   **Automatización del Setup:** Edita dinámicamente el archivo `setup` para permitir la descarga automática de dependencias faltantes durante la compilación.
+*   **Gestión de Entorno:** Configura el `PATH` y crea un `alias` en el archivo `~/.bashrc` para ejecutar el programa globalmente.
 
-- Descargar el archivo fuente de Code_Saturne guiado por el usuario.
-- Extracción y detección automáticas del directorio fuente.
-- Instalación de dependencias mínimas vía apt (pyqt5-dev-tools, python3-setuptools).
-- Construcción y compilación organizadas en directorio separado.
-- Configurar PATH y alias en ~/.bashrc para facilitar el acceso.
-- Mensajes claros de error y éxito.
-
-
-## Requisitos
-
-- GNU/Linux (Zorin OS 17.3 recomendado, otras distribuciones derivadas de Ubuntu y Debian compatibles).
-- Python 3, wget, tar, apt, bash.
-- Permisos sudo para la instalación de dependencias.
-
+## 🛠 Requisitos
+*   **Sistema:** GNU/Linux (Zorin OS, Ubuntu 22.04+ o Debian).
+*   **Herramientas:** Python 3, `wget`, `tar`, `bash`.
+*   **Privilegios:** Acceso a `sudo` para la instalación de paquetes del sistema.
 
 ## Uso
 
-1. Asignar permisos de ejecución al script:
+1.  **Asignar permisos de ejecución:**
+    ```bash
+    chmod +x install_saturne.sh
+    
 
 ```
-chmod +x install_saturne.sh
-```
 
-2. Ejecutar el script:
-
-```
+2. **Ejecutar el script:**
+```bash
 ./install_saturne.sh
+
+
 ```
 
-3. Ingresar los datos solicitados:
-   - URL oficial del archivo tar de Code_Saturne.
-   - Directorio donde guardar y extraer los fuentes.
-   - Directorio separado para la compilación.
-4. Al finalizar, sigue las instrucciones para actualizar tu entorno con `source ~/.bashrc`.
-
-## Variables configuradas
-
-- Se añade `code_saturne` al PATH en el perfil de usuario.
-- Se crea un alias `code_saturne` para ejecutar fácilmente el binario principal.
 
 
-## Notas adicionales
+```
 
-- Si algún paso falla, revisar los mensajes en consola que especifican el código de error.
-- El script instala solo dependencias mínimas; para simulaciones avanzadas, revisar la documentación oficial de Code_Saturne.
-- Se puede modificar el script para agregar más dependencias o personalizar directorios según sus necesidades.
+3.  **Configuración guiada:**
+    *   Indica si el archivo fuente es local o remoto.
+    *   Define las rutas de extracción y el directorio de construcción (**build**).
+    *   El script realizará la Fase 1 (generación de configuración) y la Fase 2 (compilación real).
+
+4.  **Actualizar el entorno:**
+    Al finalizar, ejecuta el siguiente comando para aplicar los cambios:
+    ```bash
+    source ~/.bashrc
+    
+
+```
+
+## Variables y Alias Configurados
+
+El instalador añade las siguientes líneas a tu `~/.bashrc`:
+
+* `export PATH=$PATH:[ruta_a_binarios]`
+* `alias code_saturne="[ruta_a_binario]/code_saturne"`
+
+## Notas Adicionales
+
+* **Computación Paralela:** Se instala `libopenmpi-dev` por defecto para habilitar el uso de múltiples núcleos en las simulaciones.
+* **Soporte de Librerías:** El script activa la opción `download yes`, permitiendo que el instalador de Code_Saturne descargue y compile automáticamente librerías como HDF5 o CGNS si no se encuentran en el sistema.
+* **Depuración:** Si la compilación falla, revisa los archivos de log dentro del directorio de *build* seleccionado.
+
+## Soporte y Referencias
+
+* **Sitio Oficial:** [code-saturne.org](https://www.code-saturne.org)
+* **Repositorios:** Gestión de versiones y código fuente.
+* **Buenas Prácticas:** Script desarrollado bajo estándares de robustez y automatización para entornos académicos e industriales.
+
+## ⚖️ Licencia
+
+Este script se distribuye bajo términos de uso libre para propósitos educacionales y académicos. Puede ser adaptado según las necesidades específicas de investigación.
+
+```
 
 
-## Soporte y referencias
-
-- Página oficial: [code-saturne.org](https://www.code-saturne.org)
-- Documentación rápida: Revisar "Quick Start" en la web oficial.
-- Documentación de mejores prácticas Bash: Revisar tutoriales y guías para scripts robustos.[^5][^6]
-
-
-## Licencia
-
-Este script se distribuye bajo términos de uso libre para propósitos educacionales y académicos. Adaptable a necesidades institucionales.
-
-[^1]: https://feaforall.com/installing-salome-cfd-with-code-saturne-7-0-in-2022/
-
-[^2]: https://qiweb.tudelft.nl/sysman/software-project-setup/project/index.html
-
-[^3]: https://data.research.cornell.edu/data-management/sharing/writing-readmes-for-research-code-software/
-
-[^4]: https://ecommons.cornell.edu/items/version/433
-
-[^5]: https://www.hostmycode.in/tutorials/best-practices-for-writing-bash-scripts
-
-[^6]: https://sharats.me/posts/shell-script-best-practices/
+```
