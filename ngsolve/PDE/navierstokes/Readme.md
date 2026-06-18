@@ -4,7 +4,7 @@ Este script de NGSolve simula el flujo de un fluido incompresible alrededor de u
 
 ### 1. Configuración y Geometría
 
-El script comienza importando las librerías necesarias y definiendo las constantes del problema, como la **viscosidad (ν)**, el **paso de tiempo (τ)** y el **tiempo total de simulación (tend)**.
+El script comienza importando las librerías necesarias y definiendo las constantes del problema, como la viscosidad (ν)**, el paso de tiempo (τ) y el tiempo total de simulación (tend).
 
 - **`SplineGeometry`**: Se usa para construir la geometría del dominio, que es un rectángulo (`AddRectangle`) con un círculo en su interior (`AddCircle`). Este círculo representa el obstáculo.
 - **`bcs`**: Las "boundary conditions" (condiciones de contorno) se definen para las fronteras del dominio: `wall` (pared), `outlet` (salida) e `inlet` (entrada). También se define una condición de contorno `cyl` para el cilindro.
