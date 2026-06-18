@@ -132,4 +132,4 @@ ElmerGUI
 
 ## Estado del script
 
-Este script **sigue en desarrollo**. Todavía puede requerir ajustes adicionales según la versión de Ubuntu/Debian, cambios en dependencias de Qt, actualizaciones del repositorio ElmerFEM o diferencias entre entornos de compilación.
+Este script sigue en desarrollo. Todavía puede requerir ajustes adicionales según la versión de Ubuntu/Debian, cambios en dependencias de Qt, actualizaciones del repositorio ElmerFEM o diferencias entre entornos de compilación.
