@@ -13,7 +13,7 @@ El software es multiplataforma (Linux, macOS, Windows vía WSL), escrito en **Fo
 
 ***
 
-# Instalador Bash para Code_Saturne (v0.1.5)
+# Instalador Bash para Code_Saturne (v0.2.0)
 
 ## Descripción
 
