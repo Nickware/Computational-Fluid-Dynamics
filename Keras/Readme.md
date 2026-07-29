@@ -1,3 +1,25 @@
+# TensorFlow/Keras
+
+TensorFlow es un framework de código abierto desarrollado por Google para computación numérica y aprendizaje automático, y Keras es la API de alto nivel que viene integrada dentro de TensorFlow (desde la versión 2.x) para construir y entrenar redes neuronales de forma mucho más declarativa que trabajando directamente con los tensores y operaciones de bajo nivel. En la práctica, cuando alguien dice "TensorFlow/Keras" se refiere a usar `tf.keras`: define capas, se aplica a un modelo, se compila con un optimizador y una función de pérdida, y se entrena con `.fit()`. Por debajo, TensorFlow se encarga de la diferenciación automática, la ejecución en GPU/TPU y la exportación del modelo (justo lo que estás usando al cargar `fluid_model.keras`).
+
+**Instalación**
+
+Lo más simple y recomendado hoy en día es instalar vía pip dentro de un entorno virtual, evitando conda porque el paquete de conda suele quedarse atrás respecto a la versión oficial en PyPI. Los pasos típicos en Linux (que es además el sistema con mejor soporte nativo de GPU) son actualizar pip primero y luego instalar el paquete:
+
+```bash
+python -m venv tf-env
+source tf-env/bin/activate
+pip install --upgrade pip
+pip install tensorflow          # CPU
+pip install tensorflow[and-cuda]  # GPU en Linux/WSL2, incluye las dependencias CUDA/cuDNN necesarias
+```
+
+Requiere Python entre 3.9 y 3.12 aproximadamente y se recomienda instalarlo dentro de un entorno virtual para que no interfiera con paquetes del sistema. Para verificar que quedó bien instalado, basta con abrir Python e intentar crear un tensor; si TensorFlow detecta GPU, `tf.config.list_physical_devices('GPU')` debería devolver al menos un dispositivo. Si trabajas en Windows, WSL2 suele dar mejores resultados que la instalación nativa cuando quieres aprovechar GPU, y también existe la opción de usar la imagen Docker oficial de TensorFlow, que ya viene configurada y evita todo el problema de versiones de CUDA/cuDNN.
+
+**Caso de uso, pensando en lo que ya estás haciendo**
+
+Los scripts pressNavStok2D.py y velocityNavStok2D.py son un ejemplo del uso de TensorFlow/Keras fuera del aprendizaje automático "clásico": ahí la red no se entrena para clasificar imágenes ni predecir texto, sino como surrogate solver de un sistema de ecuaciones diferenciales parciales (Navier-Stokes). Esa es la esencia de los PINNs (Physics-Informed Neural Networks): la red aprende una función continua (x, y, t) → (u, v, p) que satisface las ecuaciones del flujo, entrenada minimizando una pérdida que combina el error respecto a los datos (si los hay) con el residuo de las ecuaciones físicas evaluado vía diferenciación automática. Una vez entrenada y guardada como .keras, la red se vuelve una función de evaluación barata: en vez de resolver el sistema con un solver numérico tradicional (diferencias finitas, elementos finitos) cada vez que quieres el campo en una malla nueva, simplemente haces model.predict() sobre las coordenadas que se quiera, lo cual es justo lo que hacen tus dos scripts.
+
 
 ## pressNavStok2D.py
 
