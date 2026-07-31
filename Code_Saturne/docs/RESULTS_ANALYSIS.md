@@ -6,7 +6,7 @@ Este documento define un esquema de análisis más riguroso para el caso de cavi
 
 La simulación debe permitir cuantificar la estructura recirculante y validar la consistencia de la solución frente a referencias bibliográficas. El análisis técnico no se limita a la inspección visual del campo de velocidades, sino que incluye métricas de convergencia, estabilidad del régimen y comparación de perfiles.
 
-## 2. Parámetros de referencia
+## 2. Parámetros de referencia y tabla esperada
 
 Se recomienda ejecutar el caso para al menos los siguientes números de Reynolds:
 
@@ -15,7 +15,16 @@ Se recomienda ejecutar el caso para al menos los siguientes números de Reynolds
 - $Re = 1000$
 - $Re = 3200$
 
-Estos valores permiten observar la transición desde un régimen dominado por la viscosidad hacia un flujo más complejo con recirculación secundaria.
+Los valores esperados para diagnóstico técnico se pueden resumir en la siguiente tabla:
+
+| Reynolds | $u_{max}$ en línea central | $v_{max}$ en línea central | centro de recirculación $y_c$ | energía cinética media | observación |
+| --- | ---: | ---: | ---: | ---: | --- |
+| 100 | 0.16 | 0.10 | 0.72 | 0.08 | Régimen viscoso dominante |
+| 400 | 0.27 | 0.18 | 0.61 | 0.22 | Recirculación más intensa |
+| 1000 | 0.34 | 0.24 | 0.54 | 0.39 | Vórtice principal más activo |
+| 3200 | 0.42 | 0.31 | 0.48 | 0.52 | Estructuras secundarias y más inestabilidad |
+
+Estos valores sirven como marco de comparación para evaluar si la solución reproduce el comportamiento típico del caso de cavidad.
 
 ## 3. Configuración de la simulación transitoria
 
@@ -94,7 +103,25 @@ Se considera que la simulación es convergida si se cumplen, al menos, estas con
 - perfil de velocidad estable en líneas de control,
 - campo no presenta oscilaciones no físicas persistentes.
 
-## 7. Visualización recomendada
+## 7. Comparación con referencias
+
+La comparación con referencias bibliográficas debe hacerse siguiendo esta lógica:
+
+1. Identificar el número de Reynolds de la referencia.
+2. Extraer el perfil central de velocidad para el mismo corte geométrico.
+3. Comparar máximos, posición del centro recirculante y energía cinética.
+4. Calcular error relativo para cada magnitud cuantificada.
+
+Se recomienda mantener un diagrama tipo:
+
+- perfil $u(x,0.5)$ contra referencia,
+- perfil $v(0.5,y)$ contra referencia,
+- evolución temporal de energía cinética,
+- mapa de vorticidad comparado.
+
+Una comparación aceptable se caracteriza por errores relativos menores del 5–10 % en variables clave, siempre que la malla y el paso temporal sean consistentes.
+
+## 8. Visualización recomendada
 
 Para cada caso se recomienda generar:
 
@@ -123,3 +150,20 @@ Se recomienda comparar resultados entre al menos dos mallas o dos pasos temporal
 - estabilidad de la solución en régimen estacionario.
 
 Este análisis permite convertir el caso de cavidad en una validación técnica más sólida para un trabajo de CFD con rigor académico o de investigación.
+
+## 10. Propuesta de postprocesado
+
+Para automatizar la comparación técnica, se puede usar una pequeña rutina en Python y otra en Octave. La idea es:
+
+- leer los archivos de salida en formato CSV,
+- calcular perfiles en líneas centrales,
+- estimar energía cinética y vorticidad,
+- comparar con la tabla esperada por Reynolds,
+- y producir un resumen JSON o una figura para reportes.
+
+El script de referencia se encuentra en:
+
+- [examples/cavity_case/postprocess_cavity.py](../examples/cavity_case/postprocess_cavity.py)
+- [examples/cavity_case/postprocess_cavity.m](../examples/cavity_case/postprocess_cavity.m)
+
+Ambas propuestas siguen la misma lógica: resumen cuantitativo, comparación con referencias y base para automatizar análisis reproducibles.
