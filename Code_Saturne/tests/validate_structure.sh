@@ -29,6 +29,8 @@ require_file "$ROOT_DIR/docs/RESULTS_ANALYSIS.md"
 require_file "$ROOT_DIR/examples/cavity_case/README.md"
 require_file "$ROOT_DIR/examples/cavity_case/case_definition.md"
 require_file "$ROOT_DIR/examples/cavity_case/run_case.sh"
+require_file "$ROOT_DIR/examples/cavity_case/postprocess_cavity.py"
+require_file "$ROOT_DIR/examples/cavity_case/postprocess_cavity.m"
 require_file "$ROOT_DIR/examples/cavity_case/geometry/cavity.geo"
 require_file "$ROOT_DIR/examples/cavity_case/mesh/generate_mesh.sh"
 
