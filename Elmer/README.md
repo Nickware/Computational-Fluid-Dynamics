@@ -72,9 +72,23 @@ bash run_case.sh
 ## 5. Documentación
 
 - [docs/INSTALLATION.md](docs/INSTALLATION.md)
+- [docs/INSTALLATION_CHECKLIST.md](docs/INSTALLATION_CHECKLIST.md)
+- [docs/REPRODUCIBLE_WORKFLOW.md](docs/REPRODUCIBLE_WORKFLOW.md)
 - [docs/TUTORIAL_HEAT_PLATE.md](docs/TUTORIAL_HEAT_PLATE.md)
 - [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)
 
-## 6. Estado del repositorio
+## 6. Flujo reproducible recomendado
+
+```bash
+cd /home/jntorresr/gitHub/Computational-Fluid-Dynamics/Elmer
+bash install/install_elmer.sh
+source ~/.bashrc
+bash tests/validate_install.sh
+bash tests/validate_case.sh
+cd cases/heat_plate
+bash run_case.sh
+```
+
+## 7. Estado del repositorio
 
 La estructura está ahora orientada a un uso más claro: instalación, ejemplos didácticos, casos ejecutables y validación. La duplicación legacy se mantiene solo para compatibilidad, no como ruta activa.
