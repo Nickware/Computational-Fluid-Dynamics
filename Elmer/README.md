@@ -74,6 +74,7 @@ bash run_case.sh
 - [docs/INSTALLATION.md](docs/INSTALLATION.md)
 - [docs/INSTALLATION_CHECKLIST.md](docs/INSTALLATION_CHECKLIST.md)
 - [docs/REPRODUCIBLE_WORKFLOW.md](docs/REPRODUCIBLE_WORKFLOW.md)
+- [docs/POSTPROCESSING_HEAT.md](docs/POSTPROCESSING_HEAT.md)
 - [docs/TUTORIAL_HEAT_PLATE.md](docs/TUTORIAL_HEAT_PLATE.md)
 - [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)
 
@@ -87,6 +88,7 @@ bash tests/validate_install.sh
 bash tests/validate_case.sh
 cd cases/heat_plate
 bash run_case.sh
+python3 postprocess_heat.py --demo
 ```
 
 ## 7. Estado del repositorio

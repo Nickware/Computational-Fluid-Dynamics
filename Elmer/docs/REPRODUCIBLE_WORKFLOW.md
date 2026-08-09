@@ -36,8 +36,24 @@ bash run_case.sh
 - Confirmar que el archivo de resultados se genera en la ruta esperada.
 - Comprobar que la solución presenta el gradiente térmico esperado.
 - Revisar errores del solver en el log de ejecución.
+- Ejecutar el postprocesado para comparar la respuesta real con la solución analítica.
 
-## 6. Buenas prácticas
+## 6. Postprocesado del caso de calor
+
+```bash
+cd /home/jntorresr/gitHub/Computational-Fluid-Dynamics/Elmer
+python3 cases/heat_plate/postprocess_heat.py --demo
+```
+
+Si ya existe un resultado real:
+
+```bash
+python3 cases/heat_plate/postprocess_heat.py --result-file cases/heat_plate/results/temperature_profile.csv
+```
+
+El script genera un archivo CSV con `x`, `expected`, `actual` y `error`, y calcula el RMSE.
+
+## 7. Buenas prácticas
 
 - Mantener una estructura estable de carpetas.
 - Usar una única ruta canónica para instalación.
