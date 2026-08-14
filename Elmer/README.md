@@ -16,17 +16,27 @@ Elmer es un solver de elementos finitos multiphísico de código abierto. En est
 ```text
 Elmer/
 ├── README.md
-├── scripts/
+├── install/
 │   └── install_elmer.sh
-├── docs/
-│   ├── INSTALLATION.md
-│   └── TROUBLESHOOTING.md
 ├── examples/
 │   └── heat_plate/
 │       ├── README.md
-│       └── case.sif
+│       └── geometry/
+│           └── plate.geo
+├── cases/
+│   └── heat_plate/
+│       ├── README.md
+│       ├── case.sif
+│       └── run_case.sh
+├── docs/
+│   ├── INSTALLATION.md
+│   ├── TUTORIAL_HEAT_PLATE.md
+│   └── TROUBLESHOOTING.md
 ├── tests/
-│   └── validate_install.sh
+│   ├── validate_install.sh
+│   └── validate_case.sh
+├── scripts/
+│   └── install_elmer.sh
 ├── elmer_script.sh
 ├── Readme.md
 └── test/
@@ -55,15 +65,24 @@ El instalador ya no se considera un script improvisado. La versión actual:
 
 ## Uso recomendado
 
+### Instalación
+
 ```bash
 cd /home/jntorresr/gitHub/Computational-Fluid-Dynamics/Elmer
-bash scripts/install_elmer.sh
+bash install/install_elmer.sh
 ```
 
-Luego, para validar:
+### Validación mínima
 
 ```bash
 bash tests/validate_install.sh
+```
+
+### Caso de ejemplo real
+
+```bash
+cd /home/jntorresr/gitHub/Computational-Fluid-Dynamics/Elmer/cases/heat_plate
+bash run_case.sh
 ```
 
 ## Documentación
