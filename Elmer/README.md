@@ -1,69 +1,53 @@
-# Elmer FEM - módulo de instalación y validación
+# Elmer FEM - estructura activa y compatibilidad
 
-Este módulo tiene como objetivo centralizar la instalación y la validación de Elmer FEM dentro del repositorio. El enfoque está en dejar una estructura reproducible, con nombres estándar, documentación clara y un script de instalación más robusto.
+Este repositorio tiene una estructura activa clara y una capa de compatibilidad para no romper workflows antiguos.
 
-## Objetivo del repositorio
+## 1. Directorios activos
 
-Elmer es un solver de elementos finitos multiphísico de código abierto. En este repositorio se usa principalmente como herramienta de referencia para:
-
-- instalar Elmer FEM desde código fuente,
-- preparar un flujo de trabajo reproducible,
-- ejecutar pruebas mínimas de validación,
-- documentar un caso base sencillo.
-
-## Estructura recomendada
+Los siguientes son la versión canónica del proyecto:
 
 ```text
 Elmer/
-├── README.md
+├── README.md                     # índice principal y referencia de trabajo
 ├── install/
-│   └── install_elmer.sh
+│   └── install_elmer.sh         # instalador principal
 ├── examples/
 │   └── heat_plate/
-│       ├── README.md
+│       ├── README.md             # ejemplo didáctico / conceptual
 │       └── geometry/
 │           └── plate.geo
 ├── cases/
 │   └── heat_plate/
-│       ├── README.md
+│       ├── README.md             # caso ejecutable y validable
 │       ├── case.sif
 │       └── run_case.sh
 ├── docs/
-│   ├── INSTALLATION.md
-│   ├── TUTORIAL_HEAT_PLATE.md
-│   └── TROUBLESHOOTING.md
+│   ├── INSTALLATION.md          # guía de instalación
+│   ├── TUTORIAL_HEAT_PLATE.md   # tutorial mínimo
+│   └── TROUBLESHOOTING.md       # solución de problemas
 ├── tests/
-│   ├── validate_install.sh
-│   └── validate_case.sh
-├── scripts/
-│   └── install_elmer.sh
-├── elmer_script.sh
-├── Readme.md
-└── test/
+│   ├── validate_install.sh       # validación del entorno
+│   └── validate_case.sh          # validación del caso de ejemplo
+└── .
 ```
 
-## Qué hemos mejorado
+## 2. Diferencia entre examples y cases
 
-### 1. Estandarización de nombres y carpetas
+- examples/heat_plate: ejemplo educativo y conceptual. Sirve para entender la geometría, las ecuaciones y el problema físico.
+- cases/heat_plate: caso listo para ser ejecutado y validado con Elmer, con un flujo más cercano a una simulación real.
 
-- Se normaliza la nomenclatura del proyecto usando mayúsculas en `README.md` y carpetas descriptivas como `scripts/`, `docs/`, `tests/`.
-- Se mantienen archivos antiguos por compatibilidad, pero se deja claro el flujo actual preferido.
-- Se separa la instalación de la documentación y de la validación.
+Son complementarios, no duplicados funcionales.
 
-### 2. Script más robusto
+## 3. Compatibilidad y legado
 
-El instalador ya no se considera un script improvisado. La versión actual:
+Las siguientes rutas quedan como compatibilidad histórica, pero no son la referencia principal:
 
-- usa `set -Eeuo pipefail`,
-- valida dependencias antes de compilar,
-- separa el trabajo en pasos claros,
-- detecta si el usuario tiene permisos de `sudo`,
-- evita sobrescribir el entorno del usuario sin comprobarlo,
-- usa `cmake -S ... -B ...` y `cmake --build --install`,
-- genera un bloque de entorno solo si aún no existe,
-- valida la instalación final con comandos básicos.
+- Readme.md: copia legacy del README principal
+- test/: contenido antiguo de pruebas
+- scripts/: legado de instalación; ahora solo delega a install/
+- elmer_script.sh: wrapper de compatibilidad
 
-## Uso recomendado
+## 4. Uso recomendado
 
 ### Instalación
 
@@ -78,24 +62,19 @@ bash install/install_elmer.sh
 bash tests/validate_install.sh
 ```
 
-### Caso de ejemplo real
+### Caso base
 
 ```bash
 cd /home/jntorresr/gitHub/Computational-Fluid-Dynamics/Elmer/cases/heat_plate
 bash run_case.sh
 ```
 
-## Documentación
+## 5. Documentación
 
 - [docs/INSTALLATION.md](docs/INSTALLATION.md)
 - [docs/TUTORIAL_HEAT_PLATE.md](docs/TUTORIAL_HEAT_PLATE.md)
 - [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)
 
-## Referencias útiles
+## 6. Estado del repositorio
 
-- Elmer FEM: https://www.elmerfem.org/
-- Elmer tutorials: https://www.nic.funet.fi/index/elmer/doc/
-
-## Estado
-
-El repositorio ya no se ve como un script suelto, sino como una base más estructurada para instalación, validación y uso de un caso mínimo de referencia.
+La estructura está ahora orientada a un uso más claro: instalación, ejemplos didácticos, casos ejecutables y validación. La duplicación legacy se mantiene solo para compatibilidad, no como ruta activa.
