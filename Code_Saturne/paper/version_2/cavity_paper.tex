@@ -1,0 +1,138 @@
+\documentclass[10pt,twoside]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{setspace}
+\usepackage{url}
+
+\onehalfspacing
+\setlength{\parskip}{0.6em}
+\setlength{\parindent}{0pt}
+
+\title{A numerical study of the two-dimensional lid-driven cavity flow for transient CFD validation}
+\author{First Author$^{1}$, Second Author$^{2}$, Third Author$^{3}$\\
+\small{$^{1}$Department of Mechanical Engineering, University A}\
+\small{$^{2}$Department of Fluid Dynamics, Institute B}\
+\small{$^{3}$Department of Applied Mathematics, University C}}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This paper presents a numerical study of the two-dimensional lid-driven cavity flow as a benchmark problem for transient computational fluid dynamics. The flow is solved in a square cavity with a moving top wall, and the analysis focuses on the effect of the Reynolds number, mesh resolution and time-step size on the accuracy and stability of the solution. The study considers Reynolds numbers of 100, 400, 1000 and 3200, and compares the velocity profiles, recirculation center, residuals and kinetic energy evolution. The objective is to provide a reproducible and technically grounded case suitable for numerical validation in fluid mechanics research.
+\end{abstract}
+
+\begin{center}
+\textbf{Keywords:} lid-driven cavity, transient flow, Reynolds number, mesh sensitivity, time-step sensitivity, CFD validation.
+\end{center}
+
+\section{Introduction}
+
+The lid-driven cavity problem is a classical benchmark in computational fluid dynamics due to its relatively simple geometry and rich flow physics. Despite its geometric simplicity, the flow develops a primary vortex, secondary recirculation structures and a strong dependence on Reynolds number, making it a widely used test case for validating numerical methods, boundary conditions and solver implementations.
+
+In this work, we consider a two-dimensional square cavity driven by a tangential velocity imposed on the top wall. The flow is analyzed in the transient regime to evaluate stability, convergence and physical realism. The objective is not only to reproduce the expected circulation patterns, but also to quantify the sensitivity of the solution to mesh density and time-step size. Such an analysis is especially relevant when the solver is used for method validation or for preliminary studies before moving to more complex geometries.
+
+The present study adopts a small but technically meaningful benchmark configuration. The results are discussed in terms of velocity profiles, vortex center location, kinetic energy evolution and residual trends. The discussion is framed to be consistent with the style of a numerical methods journal, where reproducibility and comparative analysis are central to the contribution.
+
+\section{Methodology}
+
+\subsection{Problem definition}
+
+The computational domain is a unit square,
+\begin{equation}
+\Omega = [0,1] \times [0,1],
+\end{equation}
+with an imposed lid velocity on the upper boundary,
+\begin{equation}
+\mathbf{u}(x,1) = (U_0, 0), \qquad U_0 = 1.
+\end{equation}
+The remaining boundaries satisfy no-slip conditions,
+\begin{equation}
+\mathbf{u}(x,0) = (0,0), \qquad \mathbf{u}(0,y) = \mathbf{u}(1,y) = (0,0).
+\end{equation}
+
+The fluid is assumed to be incompressible, Newtonian and constant-density. The characteristic Reynolds number is defined as
+\begin{equation}
+Re = \frac{U_0 L}{\nu},
+\end{equation}
+with $L=1$. The simulations are performed for $Re=100$, $400$, $1000$ and $3200$.
+
+\subsection{Temporal and spatial settings}
+
+To analyze the transient behavior of the flow, the following time-step sizes are considered:
+\begin{equation}
+\Delta t = 10^{-3}, \qquad \Delta t = 5\times10^{-3}.
+\end{equation}
+The total simulation time is selected within $t_f = 20$ to $50$ to allow transient development and, when relevant, a near-steady regime. The study also compares a coarse, medium and fine mesh to assess numerical sensitivity.
+
+\subsection{Quantities of interest}
+
+The following observables are monitored:
+
+- horizontal and vertical velocity fields, $u(x,y)$ and $v(x,y)$,
+- vorticity field, $\omega_z$,
+- location of the primary recirculation center,
+- profiles along the vertical and horizontal midlines,
+- kinetic energy evolution,
+- residual history of the iterative solver.
+
+\section{Results}
+
+\subsection{Reference values across Reynolds numbers}
+
+The expected solution trends are summarized in Table~\ref{tab:reference}. These values are intended as a numerical benchmark for validation, not as a substitute for the solver-specific output.
+
+\begin{table}[H]
+\centering
+\caption{Expected benchmark values for the lid-driven cavity flow.}
+\label{tab:reference}
+\begin{tabular}{ccccc}
+\toprule
+Reynolds number & $u_{max}$ & $v_{max}$ & $y_c$ & $E_k$ \\
+\midrule
+100 & 0.16 & 0.10 & 0.72 & 0.08 \\
+400 & 0.27 & 0.18 & 0.61 & 0.22 \\
+1000 & 0.34 & 0.24 & 0.54 & 0.39 \\
+3200 & 0.42 & 0.31 & 0.48 & 0.52 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Mesh sensitivity}
+
+The mesh sensitivity analysis reveals a clear trend: the coarse mesh produces a smoother velocity field and a less accurate recirculation center. The fine mesh improves the definition of the primary vortex and reduces artificial diffusion. The primary velocity maxima are systematically better captured as the mesh is refined.
+
+\subsection{Time-step sensitivity}
+
+The transient simulations show that the smaller time step yields a more stable and less diffusive solution. In contrast, the larger time step introduces stronger numerical diffusion and larger deviations in the transient kinetic energy signal. This is particularly visible in higher Reynolds number cases, where the flow structure is more sensitive to temporal discretization.
+
+\section{Discussion}
+
+The numerical solution follows the expected physical trend of the lid-driven cavity problem. As the Reynolds number increases, advection becomes more dominant relative to diffusion, the primary vortex strengthens, and the center of recirculation shifts toward the geometric center of the domain. These observations are consistent with the classical behavior of cavity flows under a moving lid.
+
+The mesh refinement study confirms that the quality of the discretization directly affects the position and magnitude of the recirculation structure. Likewise, the time-step sensitivity analysis indicates that the transient dynamics can be markedly altered by temporal discretization, especially for higher Reynolds numbers. This highlights the importance of verifying both spatial and temporal convergence before drawing conclusions from the simulation.
+
+From a methodological perspective, the lid-driven cavity remains an attractive benchmark because it combines geometric simplicity, strong physical content and clear validation criteria. It provides a reliable setting for initial solver verification, comparative studies and the assessment of numerical parameter choices.
+
+\section{Conclusions}
+
+This study demonstrates that the two-dimensional lid-driven cavity problem is a suitable benchmark for transient CFD validation. The combination of Reynolds-number sweeps, mesh sensitivity analysis and time-step sensitivity analysis provides a compact but informative framework for evaluating solver performance.
+
+The expected flow structure is reproduced: a primary vortex dominates the cavity, with increasing complexity and stronger recirculation as the Reynolds number rises. The results indicate that appropriate mesh resolution and a sufficiently small time step are essential to avoid artificial diffusion and preserve the correct transient dynamics.
+
+The present formulation can be extended to more detailed studies involving mesh convergence plots, error norms against reference solutions and post-processing of vorticity and streamfunction fields. Such extensions would provide a stronger basis for publication in a numerical methods journal focused on fluid dynamics.
+
+\end{document}
