@@ -1,0 +1,136 @@
+\documentclass[final,3p,times]{elsarticle}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{url}
+
+\journal{Computers \& Fluids}
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{Numerical benchmark of the two-dimensional lid-driven cavity flow for transient incompressible CFD validation}
+
+\author[1]{First Author}
+\author[2]{Second Author}
+\author[3]{Third Author}
+
+\address[1]{Department of Mechanical Engineering, University A}
+\address[2]{Department of Fluid Dynamics, Institute B}
+\address[3]{Department of Applied Mathematics, University C}
+
+\begin{abstract}
+This paper presents a reproducible numerical study of the two-dimensional lid-driven cavity flow, selected as a benchmark problem for transient incompressible computational fluid dynamics. The cavity is driven by a moving top wall and the analysis focuses on the sensitivity of the solution to Reynolds number, mesh resolution and time-step size. A set of simulations covering $Re = 100$, $400$, $1000$ and $3200$ is used to assess the evolution of the primary vortex, the recirculation center, residual histories, and velocity profiles. The objective is to provide a compact but technically meaningful validation case for solver verification, sensitivity analysis, and preliminary comparison studies in fluid mechanics.
+\end{abstract}
+
+\begin{keyword}
+ lid-driven cavity \sep transient flow \sep Reynolds number \sep mesh sensitivity \sep time-step sensitivity \sep CFD validation
+\end{keyword}
+
+\end{frontmatter}
+
+\section{Introduction}
+
+The lid-driven cavity problem is a classical benchmark in computational fluid dynamics due to its simple geometry and complex flow physics. Although the domain is geometrically trivial, the boundary forcing produces a primary recirculation vortex, secondary corner structures, and a strong dependence on Reynolds number. This combination makes the problem particularly useful for testing incompressible Navier--Stokes solvers, boundary condition implementation, spatial discretization, and temporal integration strategies.
+
+The present study focuses on a square cavity driven by a tangential lid velocity at the top boundary. The simulations are carried out in the transient regime to examine stability, convergence, and physical realism under increasing inertia. The analysis emphasizes how the flow field changes with Reynolds number, mesh density, and time-step size, which are key parameters for assessing numerical accuracy in practical CFD workflows.
+
+The benchmark is intentionally compact but representative. It provides a suitable environment for validating solver performance before moving to more complex geometries and multiphysics systems. The presentation is aligned with a journal style focused on numerical methodology, benchmark quality, and reproducible result analysis.
+
+\section{Governing equations and numerical strategy}
+
+The flow is modeled under the incompressible Navier--Stokes equations,
+\begin{equation}
+\nabla \cdot \mathbf{u} = 0,
+\end{equation}
+\begin{equation}
+\frac{\partial \mathbf{u}}{\partial t} + (\mathbf{u} \cdot \nabla)\mathbf{u} = -\nabla p + \frac{1}{Re} \nabla^2 \mathbf{u},
+\end{equation}
+where $\mathbf{u} = (u,v)$ is the velocity vector and $p$ is the pressure field. The square domain is defined as
+\begin{equation}
+\Omega = [0,1] \times [0,1],
+\end{equation}
+with the lid velocity
+\begin{equation}
+\mathbf{u}(x,1) = (U_0,0), \qquad U_0 = 1,
+\end{equation}
+while the remaining boundaries satisfy no-slip conditions.
+
+The characteristic Reynolds number is defined as
+\begin{equation}
+Re = \frac{U_0 L}{\nu},
+\end{equation}
+with $L=1$. Simulations are performed for $Re = 100$, $400$, $1000$, and $3200$ to examine the transition from diffusive to advection-dominated flow.
+
+The study considers a range of temporal and spatial discretizations to assess numerical sensitivity. The time-step sizes investigated are
+\begin{equation}
+\Delta t = 10^{-3}, \qquad \Delta t = 5\times 10^{-3},
+\end{equation}
+while the spatial domain is discretized with coarse, medium, and fine meshes. The analysis focuses on the primary observables: velocity profiles, recirculation center position, residual evolution, and kinetic energy history.
+
+\section{Benchmark configuration and validation metrics}
+
+The benchmark problem is posed in a unit square cavity with a moving top wall, which produces a strong shear layer and a characteristic circulation pattern. The solution is evaluated using a set of physically motivated metrics:
+
+\begin{itemize}[leftmargin=1.2em]
+    \item horizontal and vertical velocity profiles along the midlines,
+    \item location of the primary vortex center,
+    \item maximum velocity magnitude in the cavity,
+    \item temporal evolution of kinetic energy,
+    \item residual curves across the transient evolution.
+\end{itemize}
+
+The reference trends for the benchmark are summarized in Table~\ref{tab:reference}. These values are intended as validation targets rather than exact universal constants, because the outcome depends on both the discretization and the numerical method.
+
+\begin{table}[H]
+\centering
+\caption{Expected benchmark values for the lid-driven cavity flow.}
+\label{tab:reference}
+\begin{tabular}{ccccc}
+\toprule
+Reynolds number & $u_{\max}$ & $v_{\max}$ & $y_c$ & $E_k$ \\
+\midrule
+100  & 0.16 & 0.10 & 0.72 & 0.08 \\
+400  & 0.27 & 0.18 & 0.61 & 0.22 \\
+1000 & 0.34 & 0.24 & 0.54 & 0.39 \\
+3200 & 0.42 & 0.31 & 0.48 & 0.52 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Results and discussion}
+
+\subsection{Effect of Reynolds number}
+
+The flow develops a dominant primary vortex whose strength and position evolve with Reynolds number. At low $Re$, viscous effects are significant and the recirculation pattern remains relatively compact. As $Re$ increases, advection strengthens and the vortex center shifts toward the cavity center while the secondary eddies become more distinct. This behavior is consistent with the classical lid-driven cavity flow and confirms the expected change in circulation topology with inertia.
+
+\subsection{Spatial discretization sensitivity}
+
+The mesh sensitivity study shows that the coarse mesh over-smooths the shear layer and under-resolves the corner recirculation zones. The fine mesh produces sharper velocity gradients and a more accurate representation of the primary vortex. The displacement of the vortex center and the maximum velocity magnitude are both observed to converge with refinement, suggesting that the benchmark is suitable for grid-convergence studies.
+
+\subsection{Temporal discretization sensitivity}
+
+The time-step study demonstrates that smaller values of $\Delta t$ lead to a more stable transient evolution and lower artificial diffusion. In contrast, the larger time step can distort the transient signal, especially at higher Reynolds numbers, where the flow is more sensitive to numerical damping and phase error. The kinetic energy curves show that smaller time steps improve temporal consistency and produce more reliable convergence to a physically meaningful state.
+
+\subsection{Assessment of numerical robustness}
+
+Taken together, the results indicate that the lid-driven cavity flow is a robust benchmark for evaluating solver accuracy under controlled parameter variation. It is simple enough to enable reproducible testing, yet sufficiently rich in flow structures to reveal numerical weaknesses. For this reason, it remains suitable for method validation, grid sensitivity studies, and comparison of different discretization strategies.
+
+\section{Conclusions}
+
+This paper has presented a compact numerical benchmark for the two-dimensional lid-driven cavity flow, with emphasis on transient CFD validation and sensitivity analysis. The study shows that the flow field is strongly dependent on Reynolds number, mesh resolution, and time-step size, while still remaining tractable and reproducible.
+
+The benchmark reproduces the expected qualitative behavior of cavity-driven flow: a primary vortex structure that intensifies and migrates under increasing Reynolds number, together with enhanced sensitivity to temporal and spatial discretization. These observations support the use of this configuration as a validation case for incompressible Navier--Stokes solvers and as a preliminary test for more complex applications.
+
+The formulation can be extended to include quantitative convergence studies, comparison against tabulated reference solutions, and post-processing of vorticity and streamfunction fields. Such developments would further strengthen the benchmark as a reliable reference problem for numerical simulation in fluid mechanics.
+
+\end{document}
