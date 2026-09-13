@@ -16,16 +16,21 @@ El objetivo es observar la estructura recirculante principal y la formación de 
 
 ## 2. Parámetros geométricos y físicos
 
-Consideraciones sugeridas:
+Caso base recomendado para estudio reproducible:
 
 - Dominio: cuadrado unitario, $L = 1$
-- Fluido: agua o aire, según el estudio
-- Viscosidad: variable según número de Reynolds
+- Fluido: incompresible, Newtoniano
 - Velocidad de la pared superior: $U_0 = 1$
-- Condición de contorno:
-  - pared superior: velocidad tangencial $u = U_0$
-  - paredes restantes: $u = 0$
-  - presión: condición de referencia o neutra según el caso
+- Número de Reynolds: $Re = 100, 400, 1000, 3200$
+- Viscosidad: $\nu = U_0 L / Re$
+- Paso temporal: $\Delta t = 10^{-3}$ a $5 \times 10^{-3}$
+- Tiempo total: $t_{final} = 20$ a $50$
+
+Condición de contorno:
+
+- pared superior: velocidad tangencial $u = U_0$
+- paredes restantes: $u = 0$
+- presión: condición de referencia o neutra según el caso
 
 ## 3. Estructura del caso
 
@@ -110,7 +115,17 @@ cd examples/cavity_case
 ./run_case.sh
 ```
 
-El script base es una plantilla; para un caso real se debe ajustar a la versión exacta de Code_Saturne y a la estructura de archivos del estudio.
+La versión más realista del caso debe definir variables como:
+
+```bash
+export REYNOLDS=1000
+export DT=0.001
+export T_FINAL=20
+export MESH_FILE="mesh/cavity.msh"
+export RESULTS_DIR="results"
+```
+
+Esto permite ejecutar varias secuencias de simulación con distintos parámetros, manteniendo la reproducibilidad del estudio.
 
 ## 9. Supervisión de resultados
 
@@ -118,9 +133,9 @@ Durante la ejecución, revisar:
 
 - convergencia del residual,
 - evolución de la energía cinética,
-- campo de velocidad,
-- campo de presión,
-- líneas de corriente.
+- campo de velocidad y vorticidad,
+- líneas de corriente,
+- comportamiento temporal del flujo en puntos de control.
 
 Se recomienda guardar resultados en:
 
@@ -128,24 +143,31 @@ Se recomienda guardar resultados en:
 examples/cavity_case/results/
 ```
 
-## 10. Postprocesado
+## 10. Postprocesado técnico
 
-Se debe exportar la solución a un formato visualizable, por ejemplo usando herramientas como ParaView o una visualización local del campo de velocidad.
+Se debe exportar la solución a un formato visualizable y cuantificar al menos:
+
+- perfiles de velocidad en $x = 0.5$ y $y = 0.5$,
+- vorticidad en region central,
+- energía cinética media,
+- evolución temporal de velocidad en puntos de referencia,
+- diferencia entre solución transitoria y casi estacionaria.
 
 ## 11. Buenas prácticas de proyecto de investigación
 
 - Documentar cada caso con un pequeño resumen ejecutivo.
-- Guardar la configuración exacta de malla y parámetros.
-- Registrar la versión del solver y del sistema operativo.
-- Separar geometría, malla, ejecución y resultados.
-- Mantener un registro de hipótesis, observaciones y resultados.
+- Guardar la configuración exacta de malla, viscosidad y tiempo final.
+- Registrar versión del solver, sistema operativo y dependencias.
+- Separar geometría, malla, ejecución, postprocesado y resultados.
+- Mantener un registro de hipótesis, observaciones y resultados para comparar casos.
 
 ## 12. Siguiente nivel
 
 Una vez validado el caso base, es posible ampliar el estudio con:
 
-- distintos números de Reynolds,
+- distintas series de Reynolds,
 - refinamiento de malla,
 - comparación con solución analítica o bibliográfica,
 - simulación transitoria con pasos temporales variables,
-- análisis de desprendimiento o estabilidad numérica.
+- análisis de estabilidad y sensibilidad numérica,
+- estudio de vorticidad y estructura de torbellinos.
