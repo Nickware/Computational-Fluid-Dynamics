@@ -18,7 +18,8 @@ Este módulo del repositorio está orientado a preparar y automatizar la instala
 - `code_saturne_script.sh`: wrapper compatible para invocar el instalador.
 - `docs/USAGE.md`: guía de uso y flujo típico de trabajo.
 - `docs/TROUBLESHOOTING.md`: solución a problemas frecuentes.
-- `examples/cavity_case/`: caso base con guía y script de ejecución.
+- `docs/EXECUTION_GUIDE.md`: flujo de trabajo paso a paso para un caso de cavidad.
+- `examples/cavity_case/`: caso base con casos de definición, geometría y ejecución.
 - `tests/validate_structure.sh`: validación mínima de estructura y sintaxis.
 - `README.md`: esta documentación.
 
@@ -85,6 +86,18 @@ Si la instalación falla o no aparece el binario, consulta:
 - [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)
 - [docs/USAGE.md](docs/USAGE.md)
 
+## Flujos recomendados para investigación
+
+La estructura de este módulo está pensada para seguir un flujo profesional de trabajo:
+
+1. Preparar entorno y dependencias.
+2. Validar la estructura del proyecto.
+3. Definir el caso de estudio.
+4. Generar la geometría y la malla.
+5. Ejecutar la simulación.
+6. Registrar resultados y observaciones.
+7. Revisar el comportamiento físico y comparar con referencias.
+
 ## Referencias oficiales
 
 - Sitio oficial: https://www.code-saturne.org
@@ -93,4 +106,4 @@ Si la instalación falla o no aparece el binario, consulta:
 
 ## Nota importante
 
-Este repositorio no pretende reemplazar la documentación oficial del proyecto. Su objetivo es ofrecer una base reproducible para la instalación, validación y puesta en marcha de un flujo mínimo de trabajo con CFD.
+Este repositorio no pretende reemplazar la documentación oficial del proyecto. Su objetivo es ofrecer una base reproducible para la instalación, validación y puesta en marcha de un flujo mínimo de trabajo con CFD, con una organización más cercana a un proyecto de investigación.
