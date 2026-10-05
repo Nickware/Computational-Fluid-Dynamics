@@ -20,6 +20,7 @@ Este módulo del repositorio está orientado a preparar y automatizar la instala
 - `docs/TROUBLESHOOTING.md`: solución a problemas frecuentes.
 - `docs/EXECUTION_GUIDE.md`: flujo de trabajo paso a paso para un caso de cavidad.
 - `docs/RESULTS_ANALYSIS.md`: esquema técnico de análisis cuantitativo de resultados.
+- `docs/REPORT_RESULTS.md`: sección técnica con resultados esperados en formato de informe.
 - `examples/cavity_case/`: caso base con casos de definición, geometría y ejecución.
 - `tests/validate_structure.sh`: validación mínima de estructura y sintaxis.
 - `README.md`: esta documentación.

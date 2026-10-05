@@ -141,13 +141,31 @@ A medida que $Re$ aumenta, se espera:
 - aparición de estructuras secundarias en recirculaciones locales,
 - y una evolución temporal más compleja en régimen transitorio.
 
-## 9. Recomendación de análisis comparativo
+## 9. Comparación de mallas y sensibilidad a $\Delta t$
 
-Se recomienda comparar resultados entre al menos dos mallas o dos pasos temporales para evaluar:
+Se recomienda evaluar dos dimensiones de análisis de la solución:
 
-- dependencia de la solución con la resolución espacial,
-- sensibilidad del tiempo de integración,
-- estabilidad de la solución en régimen estacionario.
+### 9.1 Sensibilidad a la malla
+
+- Malla gruesa: menor costo computacional, peor resolución de la vorticidad y del centro del vórtice.
+- Malla media: equilibrio aceptable para estudios preliminares.
+- Malla fina: más precisa y recomendable para validación técnica.
+
+La comparación debe hacerse usando el mismo Reynolds y el mismo tiempo final. Se recomienda reportar la diferencia relativa en:
+
+- velocidad máxima,
+- posición del centro del vórtice,
+- energía cinética media,
+- perfiles de velocidad en líneas centrales.
+
+### 9.2 Sensibilidad al paso temporal
+
+Para un mismo caso de Reynolds:
+
+- $\Delta t$ pequeño: mejor resolución temporal y mayor estabilidad;
+- $\Delta t$ grande: mayor difusión artificial y posible cambio de régimen.
+
+Se recomienda reportar la diferencia entre simulaciones con $\Delta t = 10^{-3}$ y $\Delta t = 5 \times 10^{-3}$ para comprobar si la solución es asintóticamente estable.
 
 Este análisis permite convertir el caso de cavidad en una validación técnica más sólida para un trabajo de CFD con rigor académico o de investigación.
 
