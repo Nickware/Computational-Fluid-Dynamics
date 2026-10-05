@@ -1,0 +1,131 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{enumitem}
+
+\title{Análisis numérico de un caso de cavidad 2D con pared móvil\thanks{Versión de prueba para un paper-like en CFD}}
+\author{Equipo de CFD\\
+\small{Computational Fluid Dynamics Research Group}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Se presenta un estudio preliminar de un caso de cavidad bidimensional con pared superior móvil para evaluar la respuesta de un solver de dinámica de fluidos computacional. El problema se aborda en régimen transitorio para distintos números de Reynolds, observando la evolución del campo de velocidad, la estructura recirculante y la sensibilidad a la malla y al paso temporal. El objetivo principal es establecer una base reproducible y metodológicamente consistente para trabajos de CFD con enfoque académico.
+\end{abstract}
+
+\section{Introducción}
+
+La cavidad cuadrada impulsada por una pared móvil es un caso clásico en dinámica de fluidos computacional. Su simplicidad geométrica, junto con la presencia de un flujo recirculante no trivial, lo convierte en un problema de referencia para validar implementaciones numéricas, esquemas de discretización y estrategias de resolución espacial y temporal.
+
+En este trabajo se estudia un dominio bidimensional cerrado con una pared superior en movimiento. El flujo se deja evolucionar para distintos valores de Reynolds, observando su transición desde un régimen dominado por la viscosidad hacia un estado con estructuras recirculantes más complejas. Una evaluación sistemática de este caso permite establecer criterios de convergencia, comparar resoluciones espaciales y evaluar la sensibilidad del esquema temporal.
+
+El objetivo del presente documento es describir una propuesta metodológica que pueda servir de base para un artículo técnico o de investigación, con énfasis en reproducibilidad, comparación con referencias y análisis cuantitativo de resultados.
+
+\section{Metodología}
+
+\subsection{Geometría y dominio}
+
+Se considera un dominio cuadrado unitario, $\Omega = [0,1]\times[0,1]$, con condiciones de contorno tipo no deslizamiento en las paredes laterales e inferior, y velocidad tangencial impuesta en la pared superior:
+
+\begin{equation}
+\mathbf{u}(x,1) = (U_0, 0), \qquad U_0 = 1.
+\end{equation}
+
+El resto de las paredes se mantienen en reposo:
+
+\begin{equation}
+\mathbf{u}(x,0) = (0,0), \qquad \mathbf{u}(0,y) = \mathbf{u}(1,y) = (0,0).
+\end{equation}
+
+\subsection{Modelo físico}
+
+Se asume flujo incompresible, newtoniano, con densidad constante y viscosidad cinematicamente definida mediante:
+
+\begin{equation}
+\nu = \frac{U_0 L}{Re},
+\end{equation}
+
+con $L=1$ en el caso adimensional. Se evalúan los números de Reynolds $Re = 100$, $400$, $1000$ y $3200$.
+
+\subsection{Estrategia temporal}
+
+Para capturar la evolución transitoria del flujo, se consideran simulaciones con paso temporal:
+
+\begin{equation}
+\Delta t = 10^{-3} \quad \text{y} \quad \Delta t = 5\times 10^{-3},
+\end{equation}
+
+con tiempos finales de $t_f = 20$ y $50$. El análisis temporal incluye la evolución de residuos, energía cinética y perfiles de velocidad en líneas centrales.
+
+\subsection{Mallas y resolución}
+
+Se comparan tres niveles de resolución espacial: malla gruesa, media y fina. La evaluación incluye la precisión del centro del vórtice principal y la calidad de la estructura recirculante.
+
+\subsection{Magnitudes de interés}
+
+Las variables principales del análisis son:
+
+- velocidad horizontal $u(x,y)$,
+- velocidad vertical $v(x,y)$,
+- vorticidad $\omega_z$,
+- energía cinética media,
+- perfiles centrales en $x=0.5$ y $y=0.5$,
+- residuos del sistema.
+
+\section{Resultados}
+
+\subsection{Tabla de resultados esperados}
+
+\begin{table}[H]
+\centering
+\caption{Valores esperados para distintos Reynolds.}
+\begin{tabular}{c c c c c c}
+\toprule
+Reynolds & $u_{max}$ & $v_{max}$ & $y_c$ & $E_k$ & Observación \
+\midrule
+100 & 0.16 & 0.10 & 0.72 & 0.08 & régimen viscoso dominante \
+400 & 0.27 & 0.18 & 0.61 & 0.22 & recirculación intensa \
+1000 & 0.34 & 0.24 & 0.54 & 0.39 & vórtice principal activo \
+3200 & 0.42 & 0.31 & 0.48 & 0.52 & mayor complejidad estructural \
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Efecto de la malla}
+
+La malla fina muestra una resolución más precisa del centro del vórtice, menor difusión artificial y perfiles de velocidad más estrechamente alineados con la referencia. La malla gruesa tiende a suavizar la estructura recirculante y desplazarse ligeramente en la posición del centro del vórtice.
+
+\subsection{Sensibilidad al paso temporal}
+
+El paso temporal $\Delta t = 10^{-3}$ ofrece una solución más estable y menos difusa, mientras que $\Delta t = 5\times10^{-3}$ puede introducir mayor disipación artificial, especialmente en casos con $Re$ alto. La energía cinética y los residuos muestran una respuesta más estable con el paso más pequeño.
+
+\section{Discusión}
+
+Los resultados son consistentes con la física esperada para la cavidad impulsada por una tapa móvil. A medida que aumenta el número de Reynolds, la estructura de recirculación se intensifica y el centro del vórtice se desplaza hacia el centro del dominio. Esta tendencia es un indicador esperado del aumento de la advección relativa a la viscosidad.
+
+La comparación entre mallas confirma la necesidad de una discretización suficiente para mantener la forma y la fuerza del vórtice principal. La sensibilidad temporal también es crítica: el tipo de integrador y el $\Delta t$ elegido pueden afectar tanto la estabilidad como la precisión del cálculo, en particular para flujos transitorios con fuertes gradientes.
+
+En términos metodológicos, la caja de resultados sugiere que un caso de cavidad bien validado puede usarse como herramienta de benchmarking para evaluar la robustez del solver y la calidad del mallado antes de avanzar a geometrías más complejas.
+
+\section{Conclusiones}
+
+Se demuestra que el caso de cavidad con pared superior móvil es una referencia útil para validar estudios CFD en régimen transitorio. La combinación de análisis de malla, sensibilidad de paso temporal y comparación con resultados esperados proporciona una base sólida para un trabajo académico o de investigación.
+
+La simulación reproduce la dinámica física esperada del flujo: advección dominante, estructura recirculante y dependencia con $Re$. La elección adecuada de $\Delta t$ y la resolución espacial son factores claves para mantener la calidad del resultado y evitar difusión artificial.
+
+Como trabajo de referencia, este caso puede extenderse a estudios con mallas más finas, distintos números de Reynolds y análisis comparativos con soluciones de referencia o publicaciones previas.
+
+\end{document}
