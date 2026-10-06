@@ -69,6 +69,7 @@ bash tests/validate_install.sh
 ## Documentación
 
 - [docs/INSTALLATION.md](docs/INSTALLATION.md)
+- [docs/TUTORIAL_HEAT_PLATE.md](docs/TUTORIAL_HEAT_PLATE.md)
 - [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)
 
 ## Referencias útiles
