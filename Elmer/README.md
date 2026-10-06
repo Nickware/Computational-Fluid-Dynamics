@@ -15,9 +15,9 @@ Elmer es un solver de elementos finitos multiphísico de código abierto. En est
 
 ```text
 Elmer/
-├── README.md                 # documentación principal
+├── README.md
 ├── scripts/
-│   └── install_elmer.sh     # instalación robusta de Elmer
+│   └── install_elmer.sh
 ├── docs/
 │   ├── INSTALLATION.md
 │   └── TROUBLESHOOTING.md
@@ -27,9 +27,9 @@ Elmer/
 │       └── case.sif
 ├── tests/
 │   └── validate_install.sh
-├── elmer_script.sh           # wrapper compatible con la versión anterior
-├── Readme.md                 # compatibilidad histórica
-└── test/                     # legado, se mantiene por compatibilidad
+├── elmer_script.sh
+├── Readme.md
+└── test/
 ```
 
 ## Qué hemos mejorado
